@@ -6,10 +6,10 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#1f7a6b">
-<title>词 · Chinese ⇄ ไทย</title>
+<title>词 · Chinese vocabulary</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans+Thai:wght@400;500;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+Thai:wght@400;500;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --paper:#f6f4ee; --card:#ffffff; --ink:#1c2b29; --muted:#6b7a76;
@@ -20,428 +20,571 @@
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;height:100%}
-body{
-  background:var(--paper); color:var(--ink);
-  font-family:"Outfit","Noto Sans Thai",system-ui,sans-serif;
-  overscroll-behavior:none;
-}
+body{background:var(--paper);color:var(--ink);font-family:"Outfit","Noto Sans Thai",system-ui,sans-serif;overscroll-behavior:none}
 .cn{font-family:"Noto Sans SC",system-ui,sans-serif}
+.jp{font-family:"Noto Sans JP","Noto Sans SC",system-ui,sans-serif}
 .th{font-family:"Noto Sans Thai","Outfit",sans-serif}
 .app{max-width:520px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;position:relative;padding-bottom:78px}
-/* header */
-header{padding:18px 20px 8px;display:flex;align-items:center;justify-content:space-between}
+header{padding:16px 20px 8px;display:flex;align-items:center;justify-content:space-between;gap:10px}
 .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.3px}
 .brand .seal{width:34px;height:34px;border-radius:9px;background:var(--jade);color:#fff;display:grid;place-items:center;font-size:20px;font-weight:900}
 .brand small{display:block;font-weight:500;color:var(--muted);font-size:11px;letter-spacing:.04em;text-transform:uppercase}
-.dir-toggle{display:flex;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px;font-size:12px;font-weight:600;box-shadow:var(--shadow)}
-.dir-toggle button{border:0;background:transparent;color:var(--muted);padding:6px 11px;border-radius:999px;cursor:pointer;font-family:inherit;font-weight:600}
-.dir-toggle button.on{background:var(--jade);color:#fff}
-/* views */
+.profbtn{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 13px;font-family:inherit;font-weight:700;font-size:13px;color:var(--ink);cursor:pointer;box-shadow:var(--shadow);max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:0 0 auto}
 main{flex:1;padding:6px 20px 20px}
 .hide{display:none!important}
 h2.title{font-size:20px;margin:8px 0 2px;letter-spacing:-.4px}
 .sub{color:var(--muted);font-size:13px;margin-bottom:16px}
-/* lesson chips */
-.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 0 10px;scrollbar-width:none}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 0 8px;scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
-.chip{flex:0 0 auto;border:1px solid var(--line);background:var(--card);color:var(--muted);
-  padding:8px 14px;border-radius:999px;font-weight:600;font-size:13px;cursor:pointer}
+.chip{flex:0 0 auto;border:1px solid var(--line);background:var(--card);color:var(--muted);padding:8px 14px;border-radius:999px;font-weight:600;font-size:13px;cursor:pointer}
 .chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
-/* flashcard */
-.stage{perspective:1400px;margin:8px 0 14px}
-.flash{position:relative;width:100%;min-height:340px;transform-style:preserve-3d;
-  transition:transform .5s cubic-bezier(.4,.1,.2,1);cursor:pointer}
+
+.langrow{display:flex;gap:7px;flex-wrap:wrap;margin:2px 0 12px;align-items:center}
+.langrow .lr-label{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-right:2px}
+.langchip{border:1.5px solid var(--line);background:var(--card);color:var(--muted);padding:6px 11px;border-radius:999px;font-weight:600;font-size:12.5px;cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+.langchip.on{background:var(--jade-soft);border-color:var(--jade);color:var(--jade-d)}
+.ai{display:inline-block;background:var(--amber);color:#fff;font-size:8px;font-weight:800;padding:1px 4px;border-radius:4px;margin-left:3px;vertical-align:middle;letter-spacing:.03em}
+
+.navrow{display:flex;align-items:center;justify-content:space-between;margin:4px 0 10px}
+.navbtn{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--jade-d);font-size:24px;line-height:1;cursor:pointer;box-shadow:var(--shadow);display:grid;place-items:center}
+.navbtn:active{transform:scale(.94)}
+.pos{font-weight:700;font-size:16px}
+.pos span{color:var(--muted);font-weight:500;font-size:14px}
+
+.deck{position:relative;margin:2px 0 16px;touch-action:pan-y}
+.swipe{position:relative;perspective:1400px;will-change:transform;cursor:grab}
+.swipe.enter{animation:cardIn .32s ease}
+@keyframes cardIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+.flash{position:relative;width:100%;min-height:340px;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.4,.1,.2,1)}
 .flash.flip{transform:rotateY(180deg)}
-.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;
-  background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow-lg);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:26px}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow-lg);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:26px 24px}
 .face.back{transform:rotateY(180deg)}
-.eyebrow{position:absolute;top:16px;left:18px;font-size:11px;font-weight:600;color:var(--muted);
-  letter-spacing:.08em;text-transform:uppercase}
-.speak{position:absolute;top:12px;right:12px;width:42px;height:42px;border-radius:12px;border:1px solid var(--line);
-  background:var(--paper);display:grid;place-items:center;cursor:pointer;font-size:19px}
+.eyebrow{position:absolute;top:16px;left:18px;font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.speak{position:absolute;top:12px;right:12px;width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:var(--paper);display:grid;place-items:center;cursor:pointer;font-size:19px}
+.cornertag{position:absolute;top:16px;left:50%;transform:translateX(-50%);width:34px;height:6px;border-radius:4px;background:var(--line)}
+.cornertag.t-hard{background:var(--coral)} .cornertag.t-medium{background:var(--amber)} .cornertag.t-easy{background:var(--grass)}
+.cornertag.none{display:none}
 .face .big-cn{font-size:62px;font-weight:700;line-height:1.1;letter-spacing:2px}
-.face .big-th{font-size:30px;font-weight:700;line-height:1.3}
-.face .py{font-size:22px;color:var(--jade-d);font-weight:600;margin-top:10px}
-.face .en{color:var(--muted);font-size:15px;margin-top:4px;font-style:italic}
-.divider{width:46px;height:3px;background:var(--jade-soft);border-radius:2px;margin:16px 0}
-.ex{margin-top:4px;max-width:380px}
-.ex .ex-cn{font-size:17px;font-weight:500;line-height:1.5}
-.ex .ex-py{font-size:13px;color:var(--jade-d);margin-top:3px}
-.ex .ex-th{font-size:14px;color:var(--muted);margin-top:3px}
+.face .py{font-size:21px;color:var(--jade-d);font-weight:600;margin:4px 0 10px}
+.trow{display:flex;align-items:baseline;justify-content:center;gap:9px;margin:7px 0;flex-wrap:wrap}
+.tlabel{font-size:10.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;min-width:40px;text-align:right}
+.ttext{font-size:21px;font-weight:600;color:var(--ink);max-width:300px}
+.divider{width:46px;height:3px;background:var(--jade-soft);border-radius:2px;margin:14px 0}
+.ex{margin-top:2px;max-width:380px}
+.ex .ex-cn{font-size:16px;font-weight:500;line-height:1.5}
+.ex .ex-py{font-size:12.5px;color:var(--jade-d);margin-top:3px}
+.ex .ex-th{font-size:13px;color:var(--muted);margin-top:3px}
+.emptylang{color:var(--muted);font-size:14px}
 .hint{position:absolute;bottom:14px;left:0;right:0;text-align:center;font-size:12px;color:var(--muted)}
-/* grade buttons */
-.grades{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.grade{border:0;border-radius:14px;padding:12px 4px 10px;font-family:inherit;cursor:pointer;color:#fff;font-weight:700;font-size:14px;box-shadow:var(--shadow)}
-.grade small{display:block;font-weight:500;font-size:10.5px;opacity:.9;margin-top:2px}
-.g-again{background:var(--coral)} .g-hard{background:var(--amber)}
-.g-good{background:var(--grass)} .g-easy{background:var(--jade)}
-.progress-row{display:flex;justify-content:space-between;align-items:center;margin:2px 0 12px;font-size:13px;color:var(--muted);font-weight:500}
-.bar{height:6px;background:var(--line);border-radius:4px;overflow:hidden;margin-bottom:14px}
-.bar i{display:block;height:100%;background:var(--jade);transition:width .3s}
-/* quiz */
-.q-card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:var(--shadow);margin-bottom:14px}
+.cue{position:absolute;top:50%;transform:translateY(-50%);font-size:30px;color:var(--jade);opacity:0;transition:opacity .15s;pointer-events:none;z-index:2}
+.cue.l{left:-2px}.cue.r{right:-2px}
+
+.tagrow{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:13px 14px;box-shadow:var(--shadow)}
+.taglabel{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:9px}
+.taglabel small{font-weight:500;opacity:.8}
+.tags{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.tagbtn{border:1.5px solid var(--line);background:var(--paper);border-radius:12px;padding:12px 4px;font-family:inherit;font-weight:700;font-size:14px;cursor:pointer;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:7px}
+.tagbtn::before{content:"";width:11px;height:11px;border-radius:50%;background:var(--line)}
+.tagbtn.t-hard::before{background:var(--coral)} .tagbtn.t-medium::before{background:var(--amber)} .tagbtn.t-easy::before{background:var(--grass)}
+.tagbtn.on{color:#fff;border-color:transparent}
+.tagbtn.t-hard.on{background:var(--coral)} .tagbtn.t-medium.on{background:var(--amber)} .tagbtn.t-easy.on{background:var(--grass)}
+.tagbtn.on::before{background:#fff}
+.clearhint{text-align:center;font-size:11px;color:var(--muted);margin-top:8px;min-height:14px}
+
+.qdir{display:inline-flex;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:3px;font-size:13px;font-weight:600;margin:0 auto 16px}
+.qdir button{border:0;background:transparent;color:var(--muted);padding:7px 14px;border-radius:999px;cursor:pointer;font-family:inherit;font-weight:600}
+.qdir button.on{background:var(--jade);color:#fff}
+.q-card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:var(--shadow);margin-bottom:14px;min-height:138px;display:flex;flex-direction:column;justify-content:center}
 .q-prompt{font-size:13px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
 .q-main{font-size:30px;font-weight:700;line-height:1.35;margin-bottom:6px}
 .q-main.sentence{font-size:21px;line-height:1.6}
 .q-hint{color:var(--muted);font-size:14px}
-.opts{display:flex;flex-direction:column;gap:10px}
-.opt{border:1.5px solid var(--line);background:var(--card);border-radius:14px;padding:15px 16px;
-  font-family:inherit;font-size:18px;font-weight:600;text-align:left;cursor:pointer;transition:.15s;color:var(--ink)}
+.opts{display:flex;flex-direction:column;gap:10px;min-height:248px}
+.opt{border:1.5px solid var(--line);background:var(--card);border-radius:14px;padding:15px 16px;font-family:inherit;font-size:18px;font-weight:600;text-align:left;cursor:pointer;transition:.15s;color:var(--ink)}
 .opt:active{transform:scale(.99)}
 .opt.correct{background:#e7f5ec;border-color:var(--grass);color:#1d6c45}
 .opt.wrong{background:#fbe9e7;border-color:var(--coral);color:#a83a2f}
 .opt.dim{opacity:.5}
-.btn{display:block;width:100%;border:0;background:var(--jade);color:#fff;font-family:inherit;font-weight:700;
-  font-size:16px;padding:15px;border-radius:14px;cursor:pointer;box-shadow:var(--shadow)}
+.btn{display:block;width:100%;border:0;background:var(--jade);color:#fff;font-family:inherit;font-weight:700;font-size:16px;padding:15px;border-radius:14px;cursor:pointer;box-shadow:var(--shadow)}
+.btn:disabled{opacity:.45}
 .btn.ghost{background:var(--card);color:var(--jade-d);border:1.5px solid var(--jade)}
-.btn:disabled{opacity:.4}
-/* browse */
-.search{width:100%;border:1px solid var(--line);background:var(--card);border-radius:14px;padding:13px 16px;
-  font-family:inherit;font-size:15px;margin-bottom:12px;color:var(--ink)}
+.search{width:100%;border:1px solid var(--line);background:var(--card);border-radius:14px;padding:13px 16px;font-family:inherit;font-size:15px;margin-bottom:12px;color:var(--ink)}
 .search:focus{outline:2px solid var(--jade-soft);border-color:var(--jade)}
-.row{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);
-  border-radius:14px;padding:13px 15px;margin-bottom:9px;cursor:pointer}
-.row .rc{font-size:24px;font-weight:700;min-width:74px}
+.row{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 15px;margin-bottom:9px;cursor:pointer}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--line);flex:0 0 auto}
+.dot.t-hard{background:var(--coral)} .dot.t-medium{background:var(--amber)} .dot.t-easy{background:var(--grass)}
+.row .rc{font-size:24px;font-weight:700;min-width:66px}
 .row .rt{flex:1;min-width:0}
 .row .rt .rp{font-size:13px;color:var(--jade-d);font-weight:600}
 .row .rt .rm{font-size:14px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .row .tag{font-size:11px;color:var(--muted);background:var(--paper);padding:3px 8px;border-radius:7px;font-weight:600}
-/* stats */
-.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+
+.me-hero{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:var(--shadow);text-align:center;margin-bottom:14px}
+.me-mascot{width:152px;height:152px}
+.me-stage{font-size:22px;font-weight:800;letter-spacing:-.3px;margin-top:2px}
+.me-level{color:var(--muted);font-size:13px;font-weight:600;margin-top:2px}
+.bar{height:10px;background:var(--line);border-radius:6px;overflow:hidden;margin:12px auto 6px;max-width:280px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--jade),var(--grass));transition:width .4s}
+.me-next{color:var(--muted);font-size:12.5px}
+.me-streak{margin-top:12px;display:inline-block;background:var(--jade-soft);color:var(--jade-d);font-weight:700;font-size:13px;padding:6px 13px;border-radius:999px}
+.evolve{background:linear-gradient(90deg,#fff3dc,#ffe9c2);border:1px solid var(--amber);color:#8a5a12;font-weight:700;text-align:center;padding:11px;border-radius:14px;margin-bottom:14px;animation:fade .4s ease}
+.sec-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin:20px 0 8px}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px}
 .stat{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow)}
-.stat .n{font-size:34px;font-weight:800;letter-spacing:-1px;line-height:1}
+.stat .n{font-size:30px;font-weight:800;letter-spacing:-1px;line-height:1}
 .stat .l{color:var(--muted);font-size:13px;font-weight:500;margin-top:6px}
 .stat .n.jade{color:var(--jade)} .stat .n.coral{color:var(--coral)} .stat .n.grass{color:var(--grass)}
-.reset{margin-top:8px;text-align:center}
+.tagbar{display:flex;height:14px;border-radius:7px;overflow:hidden;margin:12px 0 8px;border:1px solid var(--line)}
+.tagbar i{display:block;height:100%}
+.tagbar .s-hard{background:var(--coral)} .tagbar .s-medium{background:var(--amber)} .tagbar .s-easy{background:var(--grass)} .tagbar .s-none{background:#eceae2}
+.tagbar-key{display:flex;gap:14px;font-size:12px;color:var(--muted);flex-wrap:wrap}
+.tagbar-key span{display:flex;align-items:center;gap:5px}
+.tagbar-key i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.mascot-pick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.mp{border:2px solid var(--line);background:var(--card);border-radius:16px;padding:6px;cursor:pointer;display:flex;flex-direction:column;align-items:center;font-family:inherit;font-weight:700;font-size:11px;color:var(--muted);text-transform:capitalize}
+.mp svg{width:62px;height:62px}
+.mp.on{border-color:var(--jade);background:var(--jade-soft);color:var(--jade-d)}
+.prof-list{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.prof-chip{border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:8px 14px;font-weight:700;font-size:13px;cursor:pointer;color:var(--ink)}
+.prof-chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.reset{margin-top:14px;text-align:center}
 .reset button{background:none;border:0;color:var(--muted);font-family:inherit;font-size:13px;text-decoration:underline;cursor:pointer}
-/* empty / done */
-.center-card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:40px 24px;text-align:center;box-shadow:var(--shadow);margin-top:10px}
+.center-card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:36px 24px;text-align:center;box-shadow:var(--shadow);margin-top:10px;display:flex;flex-direction:column;align-items:center}
 .center-card .emoji{font-size:46px}
 .center-card h3{margin:14px 0 6px;font-size:22px}
 .center-card p{color:var(--muted);margin:0 0 18px;font-size:15px}
-/* bottom nav */
-nav{position:fixed;bottom:0;left:0;right:0;max-width:520px;margin:0 auto;background:rgba(255,255,255,.92);
-  backdrop-filter:blur(12px);border-top:1px solid var(--line);display:flex;padding:8px 8px calc(8px + env(safe-area-inset-bottom))}
-nav button{flex:1;border:0;background:transparent;font-family:inherit;cursor:pointer;color:var(--muted);
-  display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;font-weight:600;padding:4px}
+
+#onboarding{position:fixed;inset:0;background:rgba(28,43,41,.55);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:50;padding:18px}
+#onboarding.hide{display:none}
+.ob-card{background:var(--paper);border-radius:24px;padding:24px;max-width:430px;width:100%;box-shadow:var(--shadow-lg);max-height:94vh;overflow:auto}
+.ob-title{font-size:24px;font-weight:800;text-align:center}
+.ob-sub{color:var(--muted);text-align:center;font-size:14px;margin:4px 0 14px}
+.ob-label{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:14px 0 8px;text-align:center}
+
+nav{position:fixed;bottom:0;left:0;right:0;max-width:520px;margin:0 auto;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-top:1px solid var(--line);display:flex;padding:8px 8px calc(8px + env(safe-area-inset-bottom))}
+nav button{flex:1;border:0;background:transparent;font-family:inherit;cursor:pointer;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;font-weight:600;padding:4px}
 nav button svg{width:23px;height:23px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 nav button.on{color:var(--jade)}
 .fade{animation:fade .35s ease}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){.flash{transition:none}.fade{animation:none}}
+@media (prefers-reduced-motion:reduce){.flash,.swipe,.swipe.enter{transition:none;animation:none}}
 </style>
 </head>
 <body>
 <div class="app">
   <header>
-    <div class="brand">
-      <span class="seal cn">词</span>
-      <div>Lesson Deck<small>华语 · Batch 01</small></div>
-    </div>
-    <div class="dir-toggle" id="dirToggle">
-      <button data-dir="cn2th" class="on">中→ไทย</button>
-      <button data-dir="th2cn">ไทย→中</button>
-    </div>
+    <div class="brand"><span class="seal cn">词</span><div>Lesson Deck<small>华语 · Batch 01</small></div></div>
+    <button class="profbtn" id="profBtn"><span id="profName"></span> ▾</button>
   </header>
-
   <main>
-    <!-- STUDY -->
     <section id="view-study">
       <div class="chips" id="lessonChips"></div>
-      <div class="progress-row"><span id="studyCount">—</span><span id="studyDir"></span></div>
-      <div class="bar"><i id="studyBar" style="width:0%"></i></div>
+      <div class="langrow" id="langRow"></div>
       <div id="studyArea"></div>
     </section>
-
-    <!-- QUIZ -->
     <section id="view-quiz" class="hide">
       <h2 class="title">Quiz</h2>
       <p class="sub" id="quizSub">Test recall against the lesson set.</p>
       <div id="quizArea"></div>
     </section>
-
-    <!-- BROWSE -->
     <section id="view-browse" class="hide">
       <h2 class="title">All words</h2>
       <p class="sub" id="browseSub"></p>
       <input class="search" id="search" placeholder="Search 汉字, pinyin, or ไทย…">
       <div id="browseList"></div>
     </section>
-
-    <!-- STATS -->
-    <section id="view-stats" class="hide">
-      <h2 class="title">Progress</h2>
+    <section id="view-me" class="hide">
+      <h2 class="title">Your growth</h2>
       <p class="sub">Saved on this device.</p>
-      <div class="stat-grid" id="statGrid"></div>
-      <div class="reset"><button id="resetBtn">Reset all progress</button></div>
+      <div id="meArea"></div>
     </section>
   </main>
-
   <nav id="nav">
     <button data-view="study" class="on"><svg viewBox="0 0 24 24"><path d="M4 5h10a2 2 0 012 2v12a1 1 0 01-1.5.9L9 17l-5.5 2.9A1 1 0 012 19V7a2 2 0 012-2z"/></svg>Study</button>
     <button data-view="quiz"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 115 .5c0 1.5-2.5 2-2.5 3.5"/><path d="M12 17h.01"/></svg>Quiz</button>
     <button data-view="browse"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Browse</button>
-    <button data-view="stats"><svg viewBox="0 0 24 24"><path d="M4 19V5M4 19h16M8 16v-5M13 16V9M18 16v-8"/></svg>Stats</button>
+    <button data-view="me"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M5 20a7 7 0 0114 0"/></svg>Me</button>
   </nav>
 </div>
+<div id="onboarding" class="hide"></div>
 
 <script>
-const DATA = {"vocab": [{"lesson": "8.10", "cn": "标示", "py": "Biāoshì", "th": "ทำเครื่องหมาย / ระบุ", "en": "mark", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "8.10", "cn": "开导", "py": "Kāidǎo", "th": "ชี้แนะ / ปลอบให้คิดได้", "en": "enlighten", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "8.10", "cn": "打算", "py": "Dǎsuàn", "th": "ตั้งใจ / วางแผน", "en": "intend", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "8.10", "cn": "严重", "py": "Yánzhòng", "th": "รุนแรง / หนัก", "en": "serious", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "8.10", "cn": "避讳", "py": "Bìhuì", "th": "หลีกเลี่ยงการพูดถึงเพราะถือหรือไม่สบายใจ", "en": "taboo / avoid mentioning", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "8.10", "cn": "葬礼", "py": "Zànglǐ", "th": "พิธีศพ", "en": "funeral", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "8.10", "cn": "头等舱", "py": "Tóuděngcāng", "th": "ชั้นเฟิร์สต์คลาส", "en": "first class", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "8.10", "cn": "一串", "py": "Yī chuàn", "th": "หนึ่งพวง / หนึ่งไม้", "en": "a string / skewer", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "8.10", "cn": "一连串", "py": "Yī liánchuàn", "th": "ต่อเนื่องเป็นชุด", "en": "a series of", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "8.10", "cn": "允许", "py": "Yǔnxǔ", "th": "อนุญาต", "en": "allow", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "8.17", "cn": "鼓励", "py": "Gǔlì", "th": "ให้กำลังใจ", "en": "encourage", "ex_cn": "因为有你的鼓励，我更有信心了。", "ex_py": "Yīnwèi yǒu nǐ de gǔlì, wǒ gèng yǒu xìnxīn le.", "ex_th": ""}, {"lesson": "8.17", "cn": "周围", "py": "Zhōuwéi", "th": "รอบ ๆ / บริเวณรอบข้าง", "en": "surrounding", "ex_cn": "我家周围的环境不错，生活很便利。", "ex_py": "Wǒ jiā zhōuwéi de huánjìng bùcuò, shēnghuó hěn biànlì.", "ex_th": ""}, {"lesson": "8.17", "cn": "起源于", "py": "Qǐyuán yú", "th": "มีต้นกำเนิดจาก", "en": "originated from", "ex_cn": "不知道放水灯的习俗是源自于哪个国家呢？", "ex_py": "Bù zhīdào fàng shuǐdēng de xísú shì yuánzì yú nǎge guójiā ne?", "ex_th": ""}, {"lesson": "8.17", "cn": "男子气概", "py": "Nánzǐ qìgài", "th": "ความเป็นชาย / บุคลิกแบบลูกผู้ชาย", "en": "masculinity", "ex_cn": "我儿子从小就很有男子气概，懂得保护妇孩。", "ex_py": "Wǒ érzi cóngxiǎo jiù hěn yǒu nánzǐ qìgài, dǒngdé bǎohù fùhái.", "ex_th": ""}, {"lesson": "8.17", "cn": "主义", "py": "Zhǔyì", "th": "ลัทธิ / แนวคิดนิยม", "en": "-ism", "ex_cn": "大男人主义的时代已经过去，现在讲求性别平等。", "ex_py": "Dà nánrén zhǔyì de shídài yǐjīng guòqù, xiànzài jiǎngqiú xìngbié píngděng.", "ex_th": ""}, {"lesson": "8.17", "cn": "气候", "py": "Qìhòu", "th": "ภูมิอากาศ", "en": "climate", "ex_cn": "因为气候异常，冬天仿佛不见了。", "ex_py": "Yīnwèi qìhòu yìcháng, dōngtiān fǎngfú bùjiàn le.", "ex_th": ""}, {"lesson": "8.17", "cn": "开拓", "py": "Kāituò", "th": "บุกเบิก / เปิดตลาดหรือทางใหม่", "en": "open up / develop", "ex_cn": "我正在开拓一条没人走过的道路。", "ex_py": "Wǒ zhèngzài kāituò yì tiáo méi rén zǒuguò de dàolù.", "ex_th": ""}, {"lesson": "8.17", "cn": "精致", "py": "Jīngzhì", "th": "ประณีต / ละเอียดสวยงาม", "en": "exquisite", "ex_cn": "这个玩具特别精致，花了我很多钱才买到的。", "ex_py": "Zhège wánjù tèbié jīngzhì, huāle wǒ hěnduō qián cái mǎi dào de.", "ex_th": ""}, {"lesson": "8.17", "cn": "绝交", "py": "Juéjiāo", "th": "ตัดความสัมพันธ์", "en": "break off relations", "ex_cn": "上次吵架后，我和他已经绝交了。", "ex_py": "Shàng cì chǎojià hòu, wǒ hé tā yǐjīng juéjiāo le.", "ex_th": ""}, {"lesson": "8.17", "cn": "包裹", "py": "Bāoguǒ", "th": "พัสดุ", "en": "package", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "8.17", "cn": "发型", "py": "Fǎxíng", "th": "ทรงผม", "en": "hairstyle", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "8.17", "cn": "象征", "py": "Xiàngzhēng", "th": "สัญลักษณ์ / เป็นสัญลักษณ์ของ", "en": "symbol", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "8.17", "cn": "切断", "py": "Qiēduàn", "th": "ตัดขาด", "en": "cut off", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "8.17", "cn": "适合", "py": "Shìhé", "th": "เหมาะสม", "en": "suitable", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "8.17", "cn": "世代", "py": "Shìdài", "th": "รุ่น / ช่วงวัย", "en": "generations", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "8.17", "cn": "时代", "py": "Shídài", "th": "ยุคสมัย", "en": "era", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "8.17", "cn": "差异", "py": "Chāyì", "th": "ความแตกต่าง", "en": "difference", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "8.17", "cn": "冲突", "py": "Chōngtú", "th": "ความขัดแย้ง", "en": "conflict", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "8.17", "cn": "送终", "py": "Sòngzhōng", "th": "ดูแลช่วงสุดท้ายหรือจัดการพิธีหลังเสียชีวิต", "en": "be with someone in final moments / funeral arrangements", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "8.17", "cn": "戴绿帽", "py": "Dài lǜmào", "th": "ถูกคนรักนอกใจ / สวมเขา", "en": "be cuckolded", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "8.24", "cn": "熟悉", "py": "Shúxī", "th": "คุ้นเคย", "en": "familiar", "ex_cn": "这首歌很熟悉，我应该听过。", "ex_py": "Zhè shǒu gē hěn shúxī, wǒ yīnggāi tīngguò", "ex_th": ""}, {"lesson": "8.24", "cn": "规矩", "py": "Guījǔ", "th": "กฎ / ระเบียบ", "en": "rule", "ex_cn": "这么不合理的规矩应该修正！", "ex_py": "Zhème bù hélǐ de guījǔ yīnggāi xiūzhèng", "ex_th": ""}, {"lesson": "8.24", "cn": "专业的", "py": "Zhuānyè de", "th": "มืออาชีพ / เฉพาะทาง", "en": "professional", "ex_cn": "他是一位专业的医生，治愈了许多病人。", "ex_py": "Tā shì yī wèi zhuānyè de yīshēng, zhìyùle xǔduō bìngrén.", "ex_th": ""}, {"lesson": "8.24", "cn": "优先", "py": "Yōuxiān", "th": "ก่อน / ให้สิทธิก่อน", "en": "priority", "ex_cn": "女士优先。", "ex_py": "Nǚshì yōuxiān", "ex_th": ""}, {"lesson": "8.24", "cn": "训练", "py": "Xùnliàn", "th": "ฝึกซ้อม / ฝึกอบรม", "en": "train", "ex_cn": "为了明年的全国比赛做准备，他们每天都训练八小时。", "ex_py": "Wèile míngnián de quánguó bǐsài zuò zhǔnbèi, tāmen měitiān dū xùnliàn bā xiǎoshí", "ex_th": ""}, {"lesson": "8.24", "cn": "等等", "py": "Děngděng", "th": "รอก่อน / เป็นต้น", "en": "wait / etc.", "ex_cn": "等等我，你跑太快了！", "ex_py": "Děngděng wǒ, nǐ pǎo tài kuài le!", "ex_th": ""}, {"lesson": "8.24", "cn": "毕业", "py": "Bìyè", "th": "เรียนจบ / สำเร็จการศึกษา", "en": "graduate", "ex_cn": "我明年就毕业了，不知道要找什么工作。", "ex_py": "Wǒ míngnián jiù bìyè le, bù zhīdào yào zhǎo shénme gōngzuò", "ex_th": ""}, {"lesson": "8.24", "cn": "身份", "py": "Shēnfèn", "th": "สถานะ / ตัวตน / ฐานะ", "en": "identity", "ex_cn": "不管你的身份是什么，都应该守规矩。", "ex_py": "Bùguǎn nǐ de shēnfèn shì shénme, dōu yīnggāi shǒu guījǔ", "ex_th": ""}, {"lesson": "8.24", "cn": "敲鼓", "py": "Qiāogǔ", "th": "ตีกลอง", "en": "beat the drum", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "8.24", "cn": "鼓掌", "py": "Gǔzhǎng", "th": "ปรบมือ", "en": "applaud", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "8.24", "cn": "忌日", "py": "Jìrì", "th": "วันครบรอบวันเสียชีวิต", "en": "death anniversary", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "8.24", "cn": "凌晨", "py": "Língchén", "th": "เช้ามืด", "en": "early morning", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "8.24", "cn": "家乡", "py": "Jiāxiāng", "th": "บ้านเกิด", "en": "hometown", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "8.24", "cn": "返乡", "py": "Fǎnxiāng", "th": "กลับบ้านเกิด", "en": "go back hometown", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "8.24", "cn": "祭拜祖先", "py": "Jìbài zǔxiān", "th": "ไหว้บรรพบุรุษ", "en": "worship ancestors", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "8.24", "cn": "没想到", "py": "Méi xiǎngdào", "th": "คิดไม่ถึงว่า", "en": "unexpectedly", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "8.24", "cn": "双学位", "py": "Shuāng xuéwèi", "th": "สองปริญญา", "en": "double degree", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "8.24", "cn": "残渣", "py": "Cánzhā", "th": "เศษ / กาก", "en": "residue / scraps", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "8.24", "cn": "厨余", "py": "Chúyú", "th": "เศษอาหาร / ขยะอาหาร", "en": "food waste", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "8.24", "cn": "一直以来", "py": "Yīzhí yǐlái", "th": "ตลอดที่ผ่านมา", "en": "all the time", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "9.07", "cn": "按时", "py": "Ànshí", "th": "ตรงเวลา", "en": "on time", "ex_cn": "生病时就应该按时吃药。", "ex_py": "Shēngbìng shí jiù yīnggāi ànshí chī yào", "ex_th": ""}, {"lesson": "9.07", "cn": "安居乐业", "py": "Ānjūlèyè", "th": "อยู่เย็นเป็นสุขและทำงานอย่างมีความสุข", "en": "live and work in peace/contentment", "ex_cn": "政府要努力让国家的人民安居乐业，感觉幸福！", "ex_py": "Zhèngfǔ yào nǔlì ràng guójiā de rénmín ānjūlèyè, gǎnjué xìngfú!", "ex_th": ""}, {"lesson": "9.07", "cn": "奸诈", "py": "Jiānzhà", "th": "เจ้าเล่ห์ / คดโกง", "en": "treacherous", "ex_cn": "看他这个奸诈的样子，一定又想做坏事了。", "ex_py": "Kàn tā zhège jiānzhà de yàngzi, yīdìng yòu xiǎng zuò huàishì le", "ex_th": ""}, {"lesson": "9.07", "cn": "假装", "py": "Jiǎzhuāng", "th": "แกล้งทำเป็น", "en": "pretend", "ex_cn": "妹妹假装在睡觉，其实是躲在棉被里偷看小说。", "ex_py": "Mèimei jiǎzhuāng zài shuìjiào, qíshí shì duǒ zài miánbèi lǐ tōu kàn xiǎoshuō", "ex_th": ""}, {"lesson": "9.07", "cn": "闯进", "py": "Chuǎngjìn", "th": "บุกเข้าไป / พุ่งเข้าไป", "en": "break into", "ex_cn": "这台车突然闯进人行道，太危险了。", "ex_py": "Zhè tái chē túrán chuǎngjìn rénxíngdào, tài wéixiǎn le", "ex_th": ""}, {"lesson": "9.07", "cn": "不顾一切", "py": "Bùgù yīqiè", "th": "ไม่สนอะไรทั้งสิ้น", "en": "regardless of everything", "ex_cn": "为了达到这个目标，我可以不顾一切。", "ex_py": "Wèile dádào zhège mùbiāo, wǒ kěyǐ bùgù yīqiè", "ex_th": ""}, {"lesson": "9.07", "cn": "遥遥地", "py": "Yáoyáo de", "th": "ไกล ๆ / จากระยะไกล", "en": "from afar / remotely", "ex_cn": "一靠近家门，就看到我的狗狗遥遥地朝我奔过来。", "ex_py": "Yī kàojìn jiāmén, jiù kàndào wǒ de gǒugǒu yáoyáo de cháo wǒ bēn guòlái", "ex_th": ""}, {"lesson": "9.07", "cn": "企盼", "py": "Qǐpàn", "th": "เฝ้ารอ / คาดหวัง", "en": "look forward to", "ex_cn": "衷心地企盼您下次再度光临。", "ex_py": "Zhōngxīn de qǐpàn nín xiàcì zàidù guānglín", "ex_th": ""}, {"lesson": "9.07", "cn": "彼此", "py": "Bǐcǐ", "th": "ซึ่งกันและกัน", "en": "each other", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "9.07", "cn": "最先", "py": "Zuìxiān", "th": "ก่อนสุด / เป็นอันดับแรก", "en": "first", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "9.07", "cn": "视讯", "py": "Shìxùn", "th": "วิดีโอคอล", "en": "video call", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "9.07", "cn": "凌晨", "py": "Língchén", "th": "เช้ามืด", "en": "early morning", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "9.07", "cn": "丈夫", "py": "Zhàngfū", "th": "สามี", "en": "husband", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "9.07", "cn": "甜食", "py": "Tiánshí", "th": "ของหวาน", "en": "sweets", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "9.07", "cn": "糟糕", "py": "Zāogāo", "th": "แย่ / แย่มาก", "en": "bad", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "9.07", "cn": "热", "py": "Rè", "th": "ร้อน", "en": "hot", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "9.07", "cn": "熟", "py": "Shú", "th": "สุก / คุ้นเคย", "en": "ripe / cooked", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "9.07", "cn": "欣赏", "py": "Xīnshǎng", "th": "ชื่นชม", "en": "admire", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "9.21", "cn": "投机", "py": "Tóujī", "th": "เก็งกำไร / ฉวยโอกาส", "en": "speculation / opportunistic", "ex_cn": "投机取巧的行为是不好的。", "ex_py": "Tóujīqǔqiǎo de xíngwéi shì bù hǎo de", "ex_th": ""}, {"lesson": "9.21", "cn": "一夜暴富", "py": "Yīyè bàofù", "th": "รวยชั่วข้ามคืน", "en": "get rich overnight", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "9.21", "cn": "竞争", "py": "Jìngzhēng", "th": "การแข่งขัน", "en": "competition", "ex_cn": "业务之间良性的竞争可以帮助业绩成长。", "ex_py": "Yèwù zhī jiān liángxìng de jìngzhēng kěyǐ bāngzhù yèjī chéngzhǎng", "ex_th": ""}, {"lesson": "9.21", "cn": "投机取巧", "py": "Tóujīqǔqiǎo", "th": "ฉวยโอกาสเอาทางลัด", "en": "opportunistic / take shortcuts", "ex_cn": "这个投机取巧的行为，很不可取。", "ex_py": "Zhège tóujīqǔqiǎo de xíngwéi, hěn bùkě qǔ", "ex_th": ""}, {"lesson": "9.21", "cn": "演员", "py": "Yǎnyuán", "th": "นักแสดง", "en": "actor", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "9.21", "cn": "扎实的", "py": "Zhāshi de", "th": "แน่น / พื้นฐานมั่นคง", "en": "solid", "ex_cn": "练就扎实的基本功需要日积月累的努力。", "ex_py": "Liàn jiù zhāshi de jīběngōng xūyào rìjīyuèlěi de nǔlì", "ex_th": ""}, {"lesson": "9.21", "cn": "积累", "py": "Jīlěi", "th": "สะสม", "en": "accumulation", "ex_cn": "积累过多的压力，会影响身体健康。", "ex_py": "Jīlěi guò duō de yālì, huì yǐngxiǎng shēntǐ jiànkāng", "ex_th": ""}, {"lesson": "9.21", "cn": "一点一滴", "py": "Yīdiǎn yīdī", "th": "ทีละเล็กทีละน้อย", "en": "little by little", "ex_cn": "他认真工作，一点一滴地累积财富。", "ex_py": "Tā rènzhēn gōngzuò, yīdiǎn yīdī de lěijī cáifù", "ex_th": ""}, {"lesson": "9.21", "cn": "按钮 / 按摩 / 按电梯", "py": "Ànniǔ / ànmó / àn diàntī", "th": "ปุ่มกด / นวด / กดลิฟต์", "en": "push button / massage / press elevator button", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "9.21", "cn": "预算", "py": "Yùsuàn", "th": "งบประมาณ", "en": "budget", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "9.21", "cn": "口袋", "py": "Kǒudài", "th": "กระเป๋าเสื้อ/กางเกง", "en": "pocket", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "9.21", "cn": "规划旅行", "py": "Guīhuà lǚxíng", "th": "วางแผนท่องเที่ยว", "en": "plan a trip", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "9.21", "cn": "陪伴", "py": "Péibàn", "th": "อยู่เป็นเพื่อน / ใช้เวลาอยู่ด้วย", "en": "accompany", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "9.21", "cn": "从小", "py": "Cóngxiǎo", "th": "ตั้งแต่เด็ก", "en": "since childhood", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "9.21", "cn": "懂得", "py": "Dǒngdé", "th": "รู้จัก / เข้าใจ", "en": "know / understand", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "9.21", "cn": "用途", "py": "Yòngtú", "th": "วัตถุประสงค์การใช้", "en": "use / purpose", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "9.21", "cn": "老花眼", "py": "Lǎohuāyǎn", "th": "สายตายาวตามวัย", "en": "presbyopia", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "9.21", "cn": "斜视", "py": "Xiéshì", "th": "ตาเหล่ / ตาเข", "en": "strabismus", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "9.28", "cn": "成群的", "py": "Chéngqún de", "th": "เป็นฝูง / เป็นกลุ่ม", "en": "in groups", "ex_cn": "动物们成群地移动，很壮观。", "ex_py": "Dòngwùmen chéngqún de yídòng, hěn zhuàngguān", "ex_th": ""}, {"lesson": "9.28", "cn": "变卖", "py": "Biànmài", "th": "ขายทรัพย์สินเพื่อเปลี่ยนเป็นเงิน", "en": "sell off", "ex_cn": "为了避免吃土，我要变卖一些用不到的东西换钱！", "ex_py": "Wèile bìmiǎn chī tǔ, wǒ yào biànmài yīxiē yòng bù dào de dōngxī huàn qián!", "ex_th": ""}, {"lesson": "9.28", "cn": "满足", "py": "Mǎnzú", "th": "พอใจ / สนองความต้องการ", "en": "satisfy", "ex_cn": "吃到好吃的东西时，总是一脸满足。", "ex_py": "Chī dào hǎochī de dōngxī shí, zǒng shì yī liǎn mǎnzú", "ex_th": ""}, {"lesson": "9.28", "cn": "限制", "py": "Xiànzhì", "th": "จำกัด", "en": "limit", "ex_cn": "我限制自己一天只能吃一颗糖。", "ex_py": "Wǒ xiànzhì zìjǐ yì tiān zhǐ néng chī yì kē táng", "ex_th": ""}, {"lesson": "9.28", "cn": "宣布", "py": "Xuānbù", "th": "ประกาศ", "en": "announce", "ex_cn": "台风来了，政府宣布明天放假一天。", "ex_py": "Táifēng láile, zhèngfǔ xuānbù míngtiān fàngjià yì tiān", "ex_th": ""}, {"lesson": "9.28", "cn": "服从", "py": "Fúcóng", "th": "เชื่อฟัง / ปฏิบัติตาม", "en": "obey", "ex_cn": "服从命令是军人的天职。", "ex_py": "Fúcóng mìnglìng shì jūnrén de tiānzhí", "ex_th": ""}, {"lesson": "9.28", "cn": "发怒", "py": "Fānù", "th": "โกรธ / โมโห", "en": "get angry", "ex_cn": "妈妈一进门看到家里被我弄得很乱，忍不住发怒了。", "ex_py": "Māmā yī jìnmén kàndào jiālǐ bèi wǒ nòng de hěn luàn, rěn bù zhù fānù le", "ex_th": ""}, {"lesson": "9.28", "cn": "个个", "py": "Gègè", "th": "ทุกคน / แต่ละคน", "en": "each / all", "ex_cn": "这个队伍的选手，个个实力坚强。", "ex_py": "Zhège duìwǔ de xuǎnshǒu, gègè shílì jiānqiáng", "ex_th": ""}, {"lesson": "9.28", "cn": "机密", "py": "Jīmì", "th": "ความลับ / ลับ", "en": "confidential", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "9.28", "cn": "担心", "py": "Dānxīn", "th": "เป็นห่วง / กังวล", "en": "worry", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "9.28", "cn": "珍贵的", "py": "Zhēnguì de", "th": "มีค่า / ล้ำค่า", "en": "precious", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "9.28", "cn": "经验", "py": "Jīngyàn", "th": "ประสบการณ์", "en": "experience", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "9.28", "cn": "克服", "py": "Kèfú", "th": "เอาชนะ / ฝ่าฟัน", "en": "overcome", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "9.28", "cn": "困难", "py": "Kùnnán", "th": "ความยากลำบาก", "en": "difficulty", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "9.28", "cn": "地势", "py": "Dìshì", "th": "ภูมิประเทศ", "en": "terrain", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "9.28", "cn": "春天", "py": "Chūntiān", "th": "ฤดูใบไม้ผลิ", "en": "spring", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "9.28", "cn": "夏天", "py": "Xiàtiān", "th": "ฤดูร้อน", "en": "summer", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "9.28", "cn": "秋天", "py": "Qiūtiān", "th": "ฤดูใบไม้ร่วง", "en": "fall / autumn", "ex_cn": "", "ex_py": "", "ex_th": ""}, {"lesson": "9.28", "cn": "冬天", "py": "Dōngtiān", "th": "ฤดูหนาว", "en": "winter", "ex_cn": "", "ex_py": "", "ex_th": ""}], "quizzes": [{"lesson": "8.10", "sentence_cn": "面对大家的＿＿，他觉得又委屈又生气。", "sentence_th": "เมื่อเผชิญกับ ____ จากทุกคน เขารู้สึกทั้งน้อยใจและโกรธ", "options": ["指责", "标示", "开导"], "answer": 0}, {"lesson": "8.17", "sentence_cn": "关上座舱门前，将必须回答一系列问题，＿＿他们的身分、他们所在地点，以及他们是否了解按下按钮的后果。", "sentence_th": "ก่อนปิดประตูห้องโดยสาร จะต้องตอบคำถามหลายข้อ รวมถึงข้อมูลตัวตน สถานที่ที่อยู่ และรู้ผลของการกดปุ่มหรือไม่", "options": ["包裹", "包括", "包子"], "answer": 1}, {"lesson": "8.24", "sentence_cn": "因为有你的＿＿，我更有信心了。", "sentence_th": "เพราะมี ____ ของคุณ ฉันจึงมั่นใจมากขึ้น", "options": ["敲鼓", "鼓掌", "鼓励"], "answer": 2}, {"lesson": "9.07", "sentence_cn": "寄养家庭可以帮助导盲犬熟悉人类的社会生活和人类的社会＿＿。", "sentence_th": "ครอบครัวอุปถัมภ์ช่วยให้สุนัขนำทางคุ้นเคยกับชีวิตสังคมมนุษย์และ ____ ของสังคมมนุษย์", "options": ["规模", "规矩", "规律"], "answer": 1}, {"lesson": "9.21", "sentence_cn": "生病时就应该＿＿吃药。", "sentence_th": "เวลาป่วยก็ควรกินยา ____", "options": ["按时", "按照", "按紐"], "answer": 0}], "lessons": ["8.10", "8.17", "8.24", "9.07", "9.21", "9.28"]};
+const DATA = {"vocab": [{"lesson": "8.10", "cn": "标示", "py": "Biāoshì", "th": "ทำเครื่องหมาย / ระบุ", "en": "mark", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "表示する / 示す"}, {"lesson": "8.10", "cn": "开导", "py": "Kāidǎo", "th": "ชี้แนะ / ปลอบให้คิดได้", "en": "enlighten", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "諭す / 説き聞かせる"}, {"lesson": "8.10", "cn": "打算", "py": "Dǎsuàn", "th": "ตั้งใจ / วางแผน", "en": "intend", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "〜するつもり / 計画する"}, {"lesson": "8.10", "cn": "严重", "py": "Yánzhòng", "th": "รุนแรง / หนัก", "en": "serious", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "深刻な / 重大な"}, {"lesson": "8.10", "cn": "避讳", "py": "Bìhuì", "th": "หลีกเลี่ยงการพูดถึงเพราะถือหรือไม่สบายใจ", "en": "taboo / avoid mentioning", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "（口にするのを）忌み避ける / タブー"}, {"lesson": "8.10", "cn": "葬礼", "py": "Zànglǐ", "th": "พิธีศพ", "en": "funeral", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "葬式 / 葬儀"}, {"lesson": "8.10", "cn": "头等舱", "py": "Tóuděngcāng", "th": "ชั้นเฟิร์สต์คลาส", "en": "first class", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "ファーストクラス"}, {"lesson": "8.10", "cn": "一串", "py": "Yī chuàn", "th": "หนึ่งพวง / หนึ่งไม้", "en": "a string / skewer", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "一串（ひとくし）/ 一連"}, {"lesson": "8.10", "cn": "一连串", "py": "Yī liánchuàn", "th": "ต่อเนื่องเป็นชุด", "en": "a series of", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "一連の / 立て続けの"}, {"lesson": "8.10", "cn": "允许", "py": "Yǔnxǔ", "th": "อนุญาต", "en": "allow", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "許可する / 許す"}, {"lesson": "8.17", "cn": "鼓励", "py": "Gǔlì", "th": "ให้กำลังใจ", "en": "encourage", "ex_cn": "因为有你的鼓励，我更有信心了。", "ex_py": "Yīnwèi yǒu nǐ de gǔlì, wǒ gèng yǒu xìnxīn le.", "ex_th": "", "jp": "励ます / 激励する"}, {"lesson": "8.17", "cn": "周围", "py": "Zhōuwéi", "th": "รอบ ๆ / บริเวณรอบข้าง", "en": "surrounding", "ex_cn": "我家周围的环境不错，生活很便利。", "ex_py": "Wǒ jiā zhōuwéi de huánjìng bùcuò, shēnghuó hěn biànlì.", "ex_th": "", "jp": "周り / 周囲"}, {"lesson": "8.17", "cn": "起源于", "py": "Qǐyuán yú", "th": "มีต้นกำเนิดจาก", "en": "originated from", "ex_cn": "不知道放水灯的习俗是源自于哪个国家呢？", "ex_py": "Bù zhīdào fàng shuǐdēng de xísú shì yuánzì yú nǎge guójiā ne?", "ex_th": "", "jp": "〜に起源を持つ / 〜に由来する"}, {"lesson": "8.17", "cn": "男子气概", "py": "Nánzǐ qìgài", "th": "ความเป็นชาย / บุคลิกแบบลูกผู้ชาย", "en": "masculinity", "ex_cn": "我儿子从小就很有男子气概，懂得保护妇孩。", "ex_py": "Wǒ érzi cóngxiǎo jiù hěn yǒu nánzǐ qìgài, dǒngdé bǎohù fùhái.", "ex_th": "", "jp": "男らしさ"}, {"lesson": "8.17", "cn": "主义", "py": "Zhǔyì", "th": "ลัทธิ / แนวคิดนิยม", "en": "-ism", "ex_cn": "大男人主义的时代已经过去，现在讲求性别平等。", "ex_py": "Dà nánrén zhǔyì de shídài yǐjīng guòqù, xiànzài jiǎngqiú xìngbié píngděng.", "ex_th": "", "jp": "主義"}, {"lesson": "8.17", "cn": "气候", "py": "Qìhòu", "th": "ภูมิอากาศ", "en": "climate", "ex_cn": "因为气候异常，冬天仿佛不见了。", "ex_py": "Yīnwèi qìhòu yìcháng, dōngtiān fǎngfú bùjiàn le.", "ex_th": "", "jp": "気候"}, {"lesson": "8.17", "cn": "开拓", "py": "Kāituò", "th": "บุกเบิก / เปิดตลาดหรือทางใหม่", "en": "open up / develop", "ex_cn": "我正在开拓一条没人走过的道路。", "ex_py": "Wǒ zhèngzài kāituò yì tiáo méi rén zǒuguò de dàolù.", "ex_th": "", "jp": "開拓する / 切り開く"}, {"lesson": "8.17", "cn": "精致", "py": "Jīngzhì", "th": "ประณีต / ละเอียดสวยงาม", "en": "exquisite", "ex_cn": "这个玩具特别精致，花了我很多钱才买到的。", "ex_py": "Zhège wánjù tèbié jīngzhì, huāle wǒ hěnduō qián cái mǎi dào de.", "ex_th": "", "jp": "精巧な / 繊細で美しい"}, {"lesson": "8.17", "cn": "绝交", "py": "Juéjiāo", "th": "ตัดความสัมพันธ์", "en": "break off relations", "ex_cn": "上次吵架后，我和他已经绝交了。", "ex_py": "Shàng cì chǎojià hòu, wǒ hé tā yǐjīng juéjiāo le.", "ex_th": "", "jp": "絶交する"}, {"lesson": "8.17", "cn": "包裹", "py": "Bāoguǒ", "th": "พัสดุ", "en": "package", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "小包 / 荷物"}, {"lesson": "8.17", "cn": "发型", "py": "Fǎxíng", "th": "ทรงผม", "en": "hairstyle", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "髪型 / ヘアスタイル"}, {"lesson": "8.17", "cn": "象征", "py": "Xiàngzhēng", "th": "สัญลักษณ์ / เป็นสัญลักษณ์ของ", "en": "symbol", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "象徴 / 象徴する"}, {"lesson": "8.17", "cn": "切断", "py": "Qiēduàn", "th": "ตัดขาด", "en": "cut off", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "切断する / 断ち切る"}, {"lesson": "8.17", "cn": "适合", "py": "Shìhé", "th": "เหมาะสม", "en": "suitable", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "適している / 合う"}, {"lesson": "8.17", "cn": "世代", "py": "Shìdài", "th": "รุ่น / ช่วงวัย", "en": "generations", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "世代"}, {"lesson": "8.17", "cn": "时代", "py": "Shídài", "th": "ยุคสมัย", "en": "era", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "時代"}, {"lesson": "8.17", "cn": "差异", "py": "Chāyì", "th": "ความแตกต่าง", "en": "difference", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "差異 / 違い"}, {"lesson": "8.17", "cn": "冲突", "py": "Chōngtú", "th": "ความขัดแย้ง", "en": "conflict", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "衝突 / 対立"}, {"lesson": "8.17", "cn": "送终", "py": "Sòngzhōng", "th": "ดูแลช่วงสุดท้ายหรือจัดการพิธีหลังเสียชีวิต", "en": "be with someone in final moments / funeral arrangements", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "看取る / 臨終に立ち会う"}, {"lesson": "8.17", "cn": "戴绿帽", "py": "Dài lǜmào", "th": "ถูกคนรักนอกใจ / สวมเขา", "en": "be cuckolded", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "（妻に）浮気される / 寝取られる"}, {"lesson": "8.24", "cn": "熟悉", "py": "Shúxī", "th": "คุ้นเคย", "en": "familiar", "ex_cn": "这首歌很熟悉，我应该听过。", "ex_py": "Zhè shǒu gē hěn shúxī, wǒ yīnggāi tīngguò", "ex_th": "", "jp": "よく知っている / 慣れ親しんだ"}, {"lesson": "8.24", "cn": "规矩", "py": "Guījǔ", "th": "กฎ / ระเบียบ", "en": "rule", "ex_cn": "这么不合理的规矩应该修正！", "ex_py": "Zhème bù hélǐ de guījǔ yīnggāi xiūzhèng", "ex_th": "", "jp": "規則 / しきたり"}, {"lesson": "8.24", "cn": "专业的", "py": "Zhuānyè de", "th": "มืออาชีพ / เฉพาะทาง", "en": "professional", "ex_cn": "他是一位专业的医生，治愈了许多病人。", "ex_py": "Tā shì yī wèi zhuānyè de yīshēng, zhìyùle xǔduō bìngrén.", "ex_th": "", "jp": "専門的な / プロの"}, {"lesson": "8.24", "cn": "优先", "py": "Yōuxiān", "th": "ก่อน / ให้สิทธิก่อน", "en": "priority", "ex_cn": "女士优先。", "ex_py": "Nǚshì yōuxiān", "ex_th": "", "jp": "優先（する）"}, {"lesson": "8.24", "cn": "训练", "py": "Xùnliàn", "th": "ฝึกซ้อม / ฝึกอบรม", "en": "train", "ex_cn": "为了明年的全国比赛做准备，他们每天都训练八小时。", "ex_py": "Wèile míngnián de quánguó bǐsài zuò zhǔnbèi, tāmen měitiān dū xùnliàn bā xiǎoshí", "ex_th": "", "jp": "訓練する / トレーニング"}, {"lesson": "8.24", "cn": "等等", "py": "Děngděng", "th": "รอก่อน / เป็นต้น", "en": "wait / etc.", "ex_cn": "等等我，你跑太快了！", "ex_py": "Děngděng wǒ, nǐ pǎo tài kuài le!", "ex_th": "", "jp": "待って / 〜など"}, {"lesson": "8.24", "cn": "毕业", "py": "Bìyè", "th": "เรียนจบ / สำเร็จการศึกษา", "en": "graduate", "ex_cn": "我明年就毕业了，不知道要找什么工作。", "ex_py": "Wǒ míngnián jiù bìyè le, bù zhīdào yào zhǎo shénme gōngzuò", "ex_th": "", "jp": "卒業する"}, {"lesson": "8.24", "cn": "身份", "py": "Shēnfèn", "th": "สถานะ / ตัวตน / ฐานะ", "en": "identity", "ex_cn": "不管你的身份是什么，都应该守规矩。", "ex_py": "Bùguǎn nǐ de shēnfèn shì shénme, dōu yīnggāi shǒu guījǔ", "ex_th": "", "jp": "身分 / 身元 / 立場"}, {"lesson": "8.24", "cn": "敲鼓", "py": "Qiāogǔ", "th": "ตีกลอง", "en": "beat the drum", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "太鼓をたたく"}, {"lesson": "8.24", "cn": "鼓掌", "py": "Gǔzhǎng", "th": "ปรบมือ", "en": "applaud", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "拍手する"}, {"lesson": "8.24", "cn": "忌日", "py": "Jìrì", "th": "วันครบรอบวันเสียชีวิต", "en": "death anniversary", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "命日"}, {"lesson": "8.24", "cn": "凌晨", "py": "Língchén", "th": "เช้ามืด", "en": "early morning", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "早朝 / 未明"}, {"lesson": "8.24", "cn": "家乡", "py": "Jiāxiāng", "th": "บ้านเกิด", "en": "hometown", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "故郷 / ふるさと"}, {"lesson": "8.24", "cn": "返乡", "py": "Fǎnxiāng", "th": "กลับบ้านเกิด", "en": "go back hometown", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "帰郷する"}, {"lesson": "8.24", "cn": "祭拜祖先", "py": "Jìbài zǔxiān", "th": "ไหว้บรรพบุรุษ", "en": "worship ancestors", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "先祖を祭る / 先祖供養"}, {"lesson": "8.24", "cn": "没想到", "py": "Méi xiǎngdào", "th": "คิดไม่ถึงว่า", "en": "unexpectedly", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "思いがけず / 〜とは思わなかった"}, {"lesson": "8.24", "cn": "双学位", "py": "Shuāng xuéwèi", "th": "สองปริญญา", "en": "double degree", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "ダブルディグリー / 二つの学位"}, {"lesson": "8.24", "cn": "残渣", "py": "Cánzhā", "th": "เศษ / กาก", "en": "residue / scraps", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "残りかす / 残渣"}, {"lesson": "8.24", "cn": "厨余", "py": "Chúyú", "th": "เศษอาหาร / ขยะอาหาร", "en": "food waste", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "生ごみ / 食品廃棄物"}, {"lesson": "8.24", "cn": "一直以来", "py": "Yīzhí yǐlái", "th": "ตลอดที่ผ่านมา", "en": "all the time", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "これまでずっと"}, {"lesson": "9.07", "cn": "按时", "py": "Ànshí", "th": "ตรงเวลา", "en": "on time", "ex_cn": "生病时就应该按时吃药。", "ex_py": "Shēngbìng shí jiù yīnggāi ànshí chī yào", "ex_th": "", "jp": "時間どおりに / 定刻に"}, {"lesson": "9.07", "cn": "安居乐业", "py": "Ānjūlèyè", "th": "อยู่เย็นเป็นสุขและทำงานอย่างมีความสุข", "en": "live and work in peace/contentment", "ex_cn": "政府要努力让国家的人民安居乐业，感觉幸福！", "ex_py": "Zhèngfǔ yào nǔlì ràng guójiā de rénmín ānjūlèyè, gǎnjué xìngfú!", "ex_th": "", "jp": "安んじて暮らし楽しく働く / 平穏に暮らす"}, {"lesson": "9.07", "cn": "奸诈", "py": "Jiānzhà", "th": "เจ้าเล่ห์ / คดโกง", "en": "treacherous", "ex_cn": "看他这个奸诈的样子，一定又想做坏事了。", "ex_py": "Kàn tā zhège jiānzhà de yàngzi, yīdìng yòu xiǎng zuò huàishì le", "ex_th": "", "jp": "悪賢い / 狡猾な"}, {"lesson": "9.07", "cn": "假装", "py": "Jiǎzhuāng", "th": "แกล้งทำเป็น", "en": "pretend", "ex_cn": "妹妹假装在睡觉，其实是躲在棉被里偷看小说。", "ex_py": "Mèimei jiǎzhuāng zài shuìjiào, qíshí shì duǒ zài miánbèi lǐ tōu kàn xiǎoshuō", "ex_th": "", "jp": "ふりをする / 装う"}, {"lesson": "9.07", "cn": "闯进", "py": "Chuǎngjìn", "th": "บุกเข้าไป / พุ่งเข้าไป", "en": "break into", "ex_cn": "这台车突然闯进人行道，太危险了。", "ex_py": "Zhè tái chē túrán chuǎngjìn rénxíngdào, tài wéixiǎn le", "ex_th": "", "jp": "飛び込む / 押し入る"}, {"lesson": "9.07", "cn": "不顾一切", "py": "Bùgù yīqiè", "th": "ไม่สนอะไรทั้งสิ้น", "en": "regardless of everything", "ex_cn": "为了达到这个目标，我可以不顾一切。", "ex_py": "Wèile dádào zhège mùbiāo, wǒ kěyǐ bùgù yīqiè", "ex_th": "", "jp": "何もかも顧みず / がむしゃらに"}, {"lesson": "9.07", "cn": "遥遥地", "py": "Yáoyáo de", "th": "ไกล ๆ / จากระยะไกล", "en": "from afar / remotely", "ex_cn": "一靠近家门，就看到我的狗狗遥遥地朝我奔过来。", "ex_py": "Yī kàojìn jiāmén, jiù kàndào wǒ de gǒugǒu yáoyáo de cháo wǒ bēn guòlái", "ex_th": "", "jp": "はるかに / 遠くから"}, {"lesson": "9.07", "cn": "企盼", "py": "Qǐpàn", "th": "เฝ้ารอ / คาดหวัง", "en": "look forward to", "ex_cn": "衷心地企盼您下次再度光临。", "ex_py": "Zhōngxīn de qǐpàn nín xiàcì zàidù guānglín", "ex_th": "", "jp": "待ち望む / 切望する"}, {"lesson": "9.07", "cn": "彼此", "py": "Bǐcǐ", "th": "ซึ่งกันและกัน", "en": "each other", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "お互い"}, {"lesson": "9.07", "cn": "最先", "py": "Zuìxiān", "th": "ก่อนสุด / เป็นอันดับแรก", "en": "first", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "最初に / 真っ先に"}, {"lesson": "9.07", "cn": "视讯", "py": "Shìxùn", "th": "วิดีโอคอล", "en": "video call", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "ビデオ通話"}, {"lesson": "9.07", "cn": "凌晨", "py": "Língchén", "th": "เช้ามืด", "en": "early morning", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "早朝 / 未明"}, {"lesson": "9.07", "cn": "丈夫", "py": "Zhàngfū", "th": "สามี", "en": "husband", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "夫"}, {"lesson": "9.07", "cn": "甜食", "py": "Tiánshí", "th": "ของหวาน", "en": "sweets", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "甘い物 / スイーツ"}, {"lesson": "9.07", "cn": "糟糕", "py": "Zāogāo", "th": "แย่ / แย่มาก", "en": "bad", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "ひどい / まずい"}, {"lesson": "9.07", "cn": "热", "py": "Rè", "th": "ร้อน", "en": "hot", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "熱い / 暑い"}, {"lesson": "9.07", "cn": "熟", "py": "Shú", "th": "สุก / คุ้นเคย", "en": "ripe / cooked", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "熟した / 火が通った；慣れている"}, {"lesson": "9.07", "cn": "欣赏", "py": "Xīnshǎng", "th": "ชื่นชม", "en": "admire", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "鑑賞する / 感心する"}, {"lesson": "9.21", "cn": "投机", "py": "Tóujī", "th": "เก็งกำไร / ฉวยโอกาส", "en": "speculation / opportunistic", "ex_cn": "投机取巧的行为是不好的。", "ex_py": "Tóujīqǔqiǎo de xíngwéi shì bù hǎo de", "ex_th": "", "jp": "投機 / 機を見るに敏"}, {"lesson": "9.21", "cn": "一夜暴富", "py": "Yīyè bàofù", "th": "รวยชั่วข้ามคืน", "en": "get rich overnight", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "一夜にして大金持ちになる"}, {"lesson": "9.21", "cn": "竞争", "py": "Jìngzhēng", "th": "การแข่งขัน", "en": "competition", "ex_cn": "业务之间良性的竞争可以帮助业绩成长。", "ex_py": "Yèwù zhī jiān liángxìng de jìngzhēng kěyǐ bāngzhù yèjī chéngzhǎng", "ex_th": "", "jp": "競争"}, {"lesson": "9.21", "cn": "投机取巧", "py": "Tóujīqǔqiǎo", "th": "ฉวยโอกาสเอาทางลัด", "en": "opportunistic / take shortcuts", "ex_cn": "这个投机取巧的行为，很不可取。", "ex_py": "Zhège tóujīqǔqiǎo de xíngwéi, hěn bùkě qǔ", "ex_th": "", "jp": "ずる賢く近道をする / 抜け目なく立ち回る"}, {"lesson": "9.21", "cn": "演员", "py": "Yǎnyuán", "th": "นักแสดง", "en": "actor", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "俳優 / 役者"}, {"lesson": "9.21", "cn": "扎实的", "py": "Zhāshi de", "th": "แน่น / พื้นฐานมั่นคง", "en": "solid", "ex_cn": "练就扎实的基本功需要日积月累的努力。", "ex_py": "Liàn jiù zhāshi de jīběngōng xūyào rìjīyuèlěi de nǔlì", "ex_th": "", "jp": "しっかりした / 着実な"}, {"lesson": "9.21", "cn": "积累", "py": "Jīlěi", "th": "สะสม", "en": "accumulation", "ex_cn": "积累过多的压力，会影响身体健康。", "ex_py": "Jīlěi guò duō de yālì, huì yǐngxiǎng shēntǐ jiànkāng", "ex_th": "", "jp": "蓄積する / 積み重ねる"}, {"lesson": "9.21", "cn": "一点一滴", "py": "Yīdiǎn yīdī", "th": "ทีละเล็กทีละน้อย", "en": "little by little", "ex_cn": "他认真工作，一点一滴地累积财富。", "ex_py": "Tā rènzhēn gōngzuò, yīdiǎn yīdī de lěijī cáifù", "ex_th": "", "jp": "少しずつ"}, {"lesson": "9.21", "cn": "按钮 / 按摩 / 按电梯", "py": "Ànniǔ / ànmó / àn diàntī", "th": "ปุ่มกด / นวด / กดลิฟต์", "en": "push button / massage / press elevator button", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "ボタン（を押す）/ マッサージ / エレベーターを押す"}, {"lesson": "9.21", "cn": "预算", "py": "Yùsuàn", "th": "งบประมาณ", "en": "budget", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "予算"}, {"lesson": "9.21", "cn": "口袋", "py": "Kǒudài", "th": "กระเป๋าเสื้อ/กางเกง", "en": "pocket", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "ポケット"}, {"lesson": "9.21", "cn": "规划旅行", "py": "Guīhuà lǚxíng", "th": "วางแผนท่องเที่ยว", "en": "plan a trip", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "旅行を計画する"}, {"lesson": "9.21", "cn": "陪伴", "py": "Péibàn", "th": "อยู่เป็นเพื่อน / ใช้เวลาอยู่ด้วย", "en": "accompany", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "付き添う / 寄り添う"}, {"lesson": "9.21", "cn": "从小", "py": "Cóngxiǎo", "th": "ตั้งแต่เด็ก", "en": "since childhood", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "幼い頃から"}, {"lesson": "9.21", "cn": "懂得", "py": "Dǒngdé", "th": "รู้จัก / เข้าใจ", "en": "know / understand", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "理解している / 心得ている"}, {"lesson": "9.21", "cn": "用途", "py": "Yòngtú", "th": "วัตถุประสงค์การใช้", "en": "use / purpose", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "用途"}, {"lesson": "9.21", "cn": "老花眼", "py": "Lǎohuāyǎn", "th": "สายตายาวตามวัย", "en": "presbyopia", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "老眼"}, {"lesson": "9.21", "cn": "斜视", "py": "Xiéshì", "th": "ตาเหล่ / ตาเข", "en": "strabismus", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "斜視 / やぶにらみ"}, {"lesson": "9.28", "cn": "成群的", "py": "Chéngqún de", "th": "เป็นฝูง / เป็นกลุ่ม", "en": "in groups", "ex_cn": "动物们成群地移动，很壮观。", "ex_py": "Dòngwùmen chéngqún de yídòng, hěn zhuàngguān", "ex_th": "", "jp": "群れをなした / 群がった"}, {"lesson": "9.28", "cn": "变卖", "py": "Biànmài", "th": "ขายทรัพย์สินเพื่อเปลี่ยนเป็นเงิน", "en": "sell off", "ex_cn": "为了避免吃土，我要变卖一些用不到的东西换钱！", "ex_py": "Wèile bìmiǎn chī tǔ, wǒ yào biànmài yīxiē yòng bù dào de dōngxī huàn qián!", "ex_th": "", "jp": "（財産を）売り払う"}, {"lesson": "9.28", "cn": "满足", "py": "Mǎnzú", "th": "พอใจ / สนองความต้องการ", "en": "satisfy", "ex_cn": "吃到好吃的东西时，总是一脸满足。", "ex_py": "Chī dào hǎochī de dōngxī shí, zǒng shì yī liǎn mǎnzú", "ex_th": "", "jp": "満足する / 満たす"}, {"lesson": "9.28", "cn": "限制", "py": "Xiànzhì", "th": "จำกัด", "en": "limit", "ex_cn": "我限制自己一天只能吃一颗糖。", "ex_py": "Wǒ xiànzhì zìjǐ yì tiān zhǐ néng chī yì kē táng", "ex_th": "", "jp": "制限する"}, {"lesson": "9.28", "cn": "宣布", "py": "Xuānbù", "th": "ประกาศ", "en": "announce", "ex_cn": "台风来了，政府宣布明天放假一天。", "ex_py": "Táifēng láile, zhèngfǔ xuānbù míngtiān fàngjià yì tiān", "ex_th": "", "jp": "宣言する / 発表する"}, {"lesson": "9.28", "cn": "服从", "py": "Fúcóng", "th": "เชื่อฟัง / ปฏิบัติตาม", "en": "obey", "ex_cn": "服从命令是军人的天职。", "ex_py": "Fúcóng mìnglìng shì jūnrén de tiānzhí", "ex_th": "", "jp": "服従する / 従う"}, {"lesson": "9.28", "cn": "发怒", "py": "Fānù", "th": "โกรธ / โมโห", "en": "get angry", "ex_cn": "妈妈一进门看到家里被我弄得很乱，忍不住发怒了。", "ex_py": "Māmā yī jìnmén kàndào jiālǐ bèi wǒ nòng de hěn luàn, rěn bù zhù fānù le", "ex_th": "", "jp": "怒る / 腹を立てる"}, {"lesson": "9.28", "cn": "个个", "py": "Gègè", "th": "ทุกคน / แต่ละคน", "en": "each / all", "ex_cn": "这个队伍的选手，个个实力坚强。", "ex_py": "Zhège duìwǔ de xuǎnshǒu, gègè shílì jiānqiáng", "ex_th": "", "jp": "どれもこれも / 一人一人"}, {"lesson": "9.28", "cn": "机密", "py": "Jīmì", "th": "ความลับ / ลับ", "en": "confidential", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "機密 / 極秘"}, {"lesson": "9.28", "cn": "担心", "py": "Dānxīn", "th": "เป็นห่วง / กังวล", "en": "worry", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "心配する"}, {"lesson": "9.28", "cn": "珍贵的", "py": "Zhēnguì de", "th": "มีค่า / ล้ำค่า", "en": "precious", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "貴重な"}, {"lesson": "9.28", "cn": "经验", "py": "Jīngyàn", "th": "ประสบการณ์", "en": "experience", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "経験"}, {"lesson": "9.28", "cn": "克服", "py": "Kèfú", "th": "เอาชนะ / ฝ่าฟัน", "en": "overcome", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "克服する"}, {"lesson": "9.28", "cn": "困难", "py": "Kùnnán", "th": "ความยากลำบาก", "en": "difficulty", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "困難"}, {"lesson": "9.28", "cn": "地势", "py": "Dìshì", "th": "ภูมิประเทศ", "en": "terrain", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "地勢 / 地形"}, {"lesson": "9.28", "cn": "春天", "py": "Chūntiān", "th": "ฤดูใบไม้ผลิ", "en": "spring", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "春"}, {"lesson": "9.28", "cn": "夏天", "py": "Xiàtiān", "th": "ฤดูร้อน", "en": "summer", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "夏"}, {"lesson": "9.28", "cn": "秋天", "py": "Qiūtiān", "th": "ฤดูใบไม้ร่วง", "en": "fall / autumn", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "秋"}, {"lesson": "9.28", "cn": "冬天", "py": "Dōngtiān", "th": "ฤดูหนาว", "en": "winter", "ex_cn": "", "ex_py": "", "ex_th": "", "jp": "冬"}], "quizzes": [{"lesson": "8.10", "sentence_cn": "面对大家的＿＿，他觉得又委屈又生气。", "sentence_th": "เมื่อเผชิญกับ ____ จากทุกคน เขารู้สึกทั้งน้อยใจและโกรธ", "options": ["指责", "标示", "开导"], "answer": 0}, {"lesson": "8.17", "sentence_cn": "关上座舱门前，将必须回答一系列问题，＿＿他们的身分、他们所在地点，以及他们是否了解按下按钮的后果。", "sentence_th": "ก่อนปิดประตูห้องโดยสาร จะต้องตอบคำถามหลายข้อ รวมถึงข้อมูลตัวตน สถานที่ที่อยู่ และรู้ผลของการกดปุ่มหรือไม่", "options": ["包裹", "包括", "包子"], "answer": 1}, {"lesson": "8.24", "sentence_cn": "因为有你的＿＿，我更有信心了。", "sentence_th": "เพราะมี ____ ของคุณ ฉันจึงมั่นใจมากขึ้น", "options": ["敲鼓", "鼓掌", "鼓励"], "answer": 2}, {"lesson": "9.07", "sentence_cn": "寄养家庭可以帮助导盲犬熟悉人类的社会生活和人类的社会＿＿。", "sentence_th": "ครอบครัวอุปถัมภ์ช่วยให้สุนัขนำทางคุ้นเคยกับชีวิตสังคมมนุษย์และ ____ ของสังคมมนุษย์", "options": ["规模", "规矩", "规律"], "answer": 1}, {"lesson": "9.21", "sentence_cn": "生病时就应该＿＿吃药。", "sentence_th": "เวลาป่วยก็ควรกินยา ____", "options": ["按时", "按照", "按紐"], "answer": 0}], "lessons": ["8.10", "8.17", "8.24", "9.07", "9.21", "9.28"]};
 
-/* ---------- storage: window.storage → localStorage → memory ---------- */
 const Store = (()=>{
-  const mem={};
-  const hasWS = typeof window!=='undefined' && window.storage && window.storage.get;
+  const mem={}; const hasWS = typeof window!=='undefined' && window.storage && window.storage.get;
   return {
-    async get(k){
-      if(hasWS){ try{const r=await window.storage.get(k); return r? JSON.parse(r.value):null;}catch(e){return null;} }
-      try{const v=localStorage.getItem(k); return v?JSON.parse(v):null;}catch(e){ return k in mem? mem[k]:null; }
-    },
-    async set(k,v){
-      const s=JSON.stringify(v);
-      if(hasWS){ try{await window.storage.set(k,s); return;}catch(e){} }
-      try{localStorage.setItem(k,s);}catch(e){ mem[k]=v; }
-    }
+    async get(k){ if(hasWS){ try{const r=await window.storage.get(k); return r? JSON.parse(r.value):null;}catch(e){return null;} }
+      try{const v=localStorage.getItem(k); return v?JSON.parse(v):null;}catch(e){ return k in mem? mem[k]:null; } },
+    async set(k,v){ const s=JSON.stringify(v); if(hasWS){ try{await window.storage.set(k,s); return;}catch(e){} }
+      try{localStorage.setItem(k,s);}catch(e){ mem[k]=v; } }
   };
 })();
 
-/* ---------- state ---------- */
-let PROG={};        // per-word SRS keyed by cn
-let META={quizCorrect:0,quizTotal:0};
-let dir='cn2th';
-let lesson='all';
-let view='study';
-
-const KEY='lessondeck_prog_v1', MKEY='lessondeck_meta_v1';
-async function load(){ PROG=await Store.get(KEY)||{}; META=await Store.get(MKEY)||{quizCorrect:0,quizTotal:0}; }
-async function saveProg(){ await Store.set(KEY,PROG); }
-async function saveMeta(){ await Store.set(MKEY,META); }
-
-const now=()=>Date.now();
-const DAY=86400000;
-function card(cn){ return PROG[cn]||(PROG[cn]={ease:2.5,interval:0,due:0,reps:0,lapses:0}); }
-function deck(){ return lesson==='all'?DATA.vocab:DATA.vocab.filter(v=>v.lesson===lesson); }
-
-/* ---------- SRS (simplified SM-2) ---------- */
-function grade(cn,g){ // 0 again,1 hard,2 good,3 easy
-  const c=card(cn);
-  if(g===0){ c.ease=Math.max(1.3,c.ease-0.2); c.interval=0; c.lapses++; c.due=now()+60000; }
-  else if(g===1){ c.ease=Math.max(1.3,c.ease-0.15); c.interval=Math.max(1,c.interval*1.2||1); c.due=now()+c.interval*DAY; }
-  else if(g===2){ c.interval=c.reps===0?1:Math.max(1,c.interval*c.ease); c.due=now()+c.interval*DAY; }
-  else { c.ease+=0.15; c.interval=Math.max(4,(c.interval||1)*c.ease*1.3); c.due=now()+c.interval*DAY; }
-  c.reps++; saveProg();
+/* ---------- mascot art ---------- */
+const PAL={
+  dragon:{body:'#2f8a6d',belly:'#cfe9dc',accent:'#e0a23a',spike:'#1f6e54'},
+  phoenix:{body:'#e26a3c',belly:'#f7d2a3',accent:'#f2a93b',spike:'#c64a2c'},
+  warrior:{body:'#6f93a6',belly:'#e7d6b6',accent:'#e0b23a',spike:'#4e6f80'}
+};
+const STAGES=[0,40,120,280,560];
+const STAGE_NAMES=['Egg','Hatchling','Young','Grown','Legendary'];
+function stageOf(xp){ let s=0; for(let i=0;i<STAGES.length;i++) if(xp>=STAGES[i])s=i; return s; }
+function mascot(type,stage){
+  const C=PAL[type]||PAL.dragon; let s='';
+  if(stage===0){
+    s+=`<ellipse cx="100" cy="108" rx="52" ry="66" fill="#f3ede1" stroke="${C.spike}" stroke-width="3"/>`;
+    s+=`<ellipse cx="84" cy="92" rx="7" ry="9" fill="${C.accent}" opacity="0.5"/><ellipse cx="116" cy="120" rx="6" ry="8" fill="${C.body}" opacity="0.4"/><ellipse cx="104" cy="70" rx="5" ry="6" fill="${C.accent}" opacity="0.4"/>`;
+    s+=`<polyline points="80,96 96,104 86,114 104,122 94,132" fill="none" stroke="${C.spike}" stroke-width="2.5" stroke-linejoin="round"/>`;
+    return s;
+  }
+  if(stage>=4) s+=`<circle cx="100" cy="106" r="74" fill="${C.accent}" opacity="0.12"/><circle cx="100" cy="106" r="80" fill="none" stroke="${C.accent}" stroke-width="3" opacity="0.4"/>`;
+  if(stage>=3){
+    if(type==='dragon'){
+      s+=`<path d="M64 96 Q20 66 16 112 L44 100 L38 126 Q58 108 70 110 Z" fill="${C.spike}"/>`;
+      s+=`<path d="M136 96 Q180 66 184 112 L156 100 L162 126 Q142 108 130 110 Z" fill="${C.spike}"/>`;
+    } else if(type==='phoenix'){
+      s+=`<path d="M70 100 Q16 64 22 122 Q44 108 72 116 Z" fill="${C.accent}"/>`;
+      s+=`<path d="M130 100 Q184 64 178 122 Q156 108 128 116 Z" fill="${C.accent}"/>`;
+    } else {
+      s+=`<rect x="150" y="64" width="7" height="72" rx="3" fill="#c9ccd2"/><rect x="145" y="58" width="17" height="8" rx="3" fill="${C.accent}"/><rect x="151" y="132" width="5" height="10" fill="${C.accent}"/>`;
+      s+=`<circle cx="50" cy="120" r="20" fill="${C.spike}"/><circle cx="50" cy="120" r="8" fill="${C.accent}"/>`;
+    }
+  }
+  const scale = stage===1?0.6: stage===2?0.82:1;
+  s+=`<g transform="translate(100 108) scale(${scale}) translate(-100 -108)">`;
+  s+=`<ellipse cx="100" cy="116" rx="44" ry="43" fill="${C.body}"/>`;
+  s+=`<ellipse cx="100" cy="127" rx="25" ry="23" fill="${C.belly}"/>`;
+  if(type==='dragon' && stage>=2) s+=`<path d="M82 80 L78 62 L90 78 Z" fill="${C.spike}"/><path d="M118 80 L122 62 L110 78 Z" fill="${C.spike}"/>`;
+  if(type==='phoenix' && stage>=2){ s+=`<path d="M100 80 q-9 -18 0 -28 q9 10 0 28 Z" fill="${C.accent}"/>`;
+    if(stage>=4) s+=`<path d="M86 78 q-7 -14 1 -22 M114 78 q7 -14 -1 -22" stroke="${C.accent}" stroke-width="4" fill="none" stroke-linecap="round"/>`; }
+  if(type==='warrior' && stage>=2){ s+=`<path d="M68 98 A32 30 0 0 1 132 98 L132 102 L68 102 Z" fill="${C.spike}"/><rect x="96" y="86" width="8" height="16" fill="${C.body}"/>`;
+    if(stage>=4) s+=`<rect x="92" y="54" width="16" height="10" rx="2" fill="${C.accent}"/>`; }
+  if(type==='dragon' && stage>=4) s+=`<path d="M100 74 l-7 -14 l7 5 l7 -5 z" fill="${C.accent}"/>`;
+  s+=`<circle cx="86" cy="110" r="7" fill="#23302d"/><circle cx="114" cy="110" r="7" fill="#23302d"/>`;
+  s+=`<circle cx="88.5" cy="107.5" r="2.4" fill="#fff"/><circle cx="116.5" cy="107.5" r="2.4" fill="#fff"/>`;
+  s+=`<circle cx="76" cy="122" r="5" fill="${C.accent}" opacity="0.45"/><circle cx="124" cy="122" r="5" fill="${C.accent}" opacity="0.45"/>`;
+  if(type==='phoenix') s+=`<path d="M95 120 L100 128 L105 120 Z" fill="${C.accent}"/>`;
+  else s+=`<path d="M91 124 Q100 133 109 124" fill="none" stroke="#23302d" stroke-width="2.5" stroke-linecap="round"/>`;
+  s+=`<ellipse cx="85" cy="158" rx="11" ry="7" fill="${C.spike}"/><ellipse cx="115" cy="158" rx="11" ry="7" fill="${C.spike}"/>`;
+  s+=`</g>`;
+  if(stage===1) s+=`<path d="M62 150 Q100 140 138 150 L150 168 L134 160 L122 170 L108 160 L94 170 L80 160 L66 168 Z" fill="#f3ede1" stroke="${C.spike}" stroke-width="2" stroke-linejoin="round"/>`;
+  return s;
 }
+
+/* ---------- profiles + state ---------- */
+let PROFILES=[], CUR=null;
+let PROG={}, META={quizCorrect:0,quizTotal:0}, dir='cn2th', langs={py:true,th:true,en:false,jp:false};
+let GAME={mascot:'dragon',xp:0,streak:0,lastDay:null,stageSeen:0};
+let view='study', lesson='all';
+const PKEY='ld_profiles', CKEY='ld_current';
+const dkey=id=>'ld_data_'+id;
+
+async function loadProfiles(){ PROFILES=await Store.get(PKEY)||[]; CUR=await Store.get(CKEY)||null; }
+async function saveProfiles(){ await Store.set(PKEY,PROFILES); await Store.set(CKEY,CUR); }
+async function loadCurrent(){
+  const d=await Store.get(dkey(CUR))||{};
+  PROG=d.prog||{}; META=d.meta||{quizCorrect:0,quizTotal:0};
+  dir=d.dir||'cn2th'; langs=Object.assign({py:true,th:true,en:false,jp:false},d.langs||{});
+  GAME=Object.assign({mascot:'dragon',xp:0,streak:0,lastDay:null,stageSeen:0},d.game||{});
+  const p=PROFILES.find(p=>p.id===CUR); if(p&&p.mascot)GAME.mascot=p.mascot;
+}
+function saveData(){ if(CUR) Store.set(dkey(CUR),{prog:PROG,meta:META,dir,langs,game:GAME}); }
+function saveProg(){ saveData(); } function saveMeta(){ saveData(); } function saveSet(){ saveData(); }
+function rec(cn){ return PROG[cn]||(PROG[cn]={seen:false,tag:null}); }
+function deck(){ return lesson==='all'?DATA.vocab:DATA.vocab.filter(v=>v.lesson===lesson); }
+const LMAP={}; DATA.lessons.forEach((l,i)=>LMAP[l]=i+1);
+function lessonLabel(l){ return 'Lesson '+(LMAP[l]||l); }
+
+function todayStr(){ const d=new Date(); return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); }
+function dailyCheck(){
+  const t=todayStr(); if(GAME.lastDay===t)return;
+  const y=new Date(); y.setDate(y.getDate()-1); const ys=y.getFullYear()+'-'+(y.getMonth()+1)+'-'+y.getDate();
+  GAME.streak=(GAME.lastDay===ys)?(GAME.streak+1):1; GAME.lastDay=t; GAME.xp+=10; saveData();
+}
+function awardXP(n){ GAME.xp+=n; saveData(); if(view==='me')renderMe(); }
 
 /* ---------- audio ---------- */
 let zhVoice=null;
 function pickVoice(){ const vs=speechSynthesis.getVoices(); zhVoice=vs.find(v=>/zh|Chinese/i.test(v.lang+v.name))||null; }
 if('speechSynthesis' in window){ pickVoice(); speechSynthesis.onvoiceschanged=pickVoice; }
-function speak(text){
-  if(!('speechSynthesis' in window))return;
-  speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance(text); u.lang='zh-CN'; if(zhVoice)u.voice=zhVoice; u.rate=.85;
-  speechSynthesis.speak(u);
-}
+function speak(t){ if(!('speechSynthesis' in window))return; speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(t); u.lang='zh-CN'; if(zhVoice)u.voice=zhVoice; u.rate=.85; speechSynthesis.speak(u); }
 
 /* ---------- STUDY ---------- */
-let queue=[], cur=null, flipped=false, sessionDone=0, sessionTotal=0;
-function buildQueue(){
-  const d=deck();
-  const due=d.filter(v=>{const c=PROG[v.cn]; return c&&c.due<=now()&&c.reps>0;});
-  const fresh=d.filter(v=>!PROG[v.cn]||PROG[v.cn].reps===0);
-  // due first, then up to 12 new per session
-  queue=[...due, ...fresh.slice(0,12)];
-  // if nothing due/new (all ahead of schedule) let user review whole lesson
-  if(queue.length===0) queue=[...d];
-  sessionTotal=queue.length; sessionDone=0;
+let deckArr=[], idx=0, flipped=false;
+function exHTML(v){ return v.ex_cn?`<div class="divider"></div><div class="ex">
+    <div class="ex-cn cn">${v.ex_cn}</div>${v.ex_py?`<div class="ex-py">${v.ex_py}</div>`:''}
+    ${v.ex_th?`<div class="ex-th th">${v.ex_th}</div>`:''}</div>`:''; }
+function backHTML(v){
+  let h='';
+  if(langs.py) h+=`<div class="py">${v.py}</div>`;
+  if(langs.th) h+=`<div class="trow"><span class="tlabel">ไทย</span><span class="ttext th">${v.th}</span></div>`;
+  if(langs.en && v.en) h+=`<div class="trow"><span class="tlabel">EN</span><span class="ttext">${v.en}</span></div>`;
+  if(langs.jp) h+=`<div class="trow"><span class="tlabel">日本語<i class="ai">AI</i></span><span class="ttext jp">${v.jp}</span></div>`;
+  if(!h) h=`<div class="emptylang">Turn on a language above ↑</div>`;
+  return h+exHTML(v);
 }
-function nextCard(){ flipped=false; cur=queue.shift()||null; renderStudy(); }
-
-function renderStudy(){
+function renderLangRow(){
+  const el=document.getElementById('langRow');
+  const defs=[['py','Pinyin'],['th','ไทย'],['en','EN'],['jp','日本語']];
+  el.innerHTML=`<span class="lr-label">Show</span>`+defs.map(([k,lab])=>
+    `<button class="langchip ${langs[k]?'on':''}" data-k="${k}">${langs[k]?'✓ ':''}${lab}${k==='jp'?'<i class="ai">AI</i>':''}</button>`).join('');
+  [...el.querySelectorAll('.langchip')].forEach(b=>b.onclick=()=>{ langs[b.dataset.k]=!langs[b.dataset.k]; saveSet(); renderLangRow(); renderCard(false); });
+}
+function rebuildDeck(){ deckArr=deck().slice(); idx=0; flipped=false; renderCard(); }
+function curWord(){ return deckArr[idx]; }
+function renderCard(animate=true){
   const area=document.getElementById('studyArea');
-  document.getElementById('studyDir').textContent = dir==='cn2th'?'中文 → ไทย':'ไทย → 中文';
-  if(!cur){
-    document.getElementById('studyCount').textContent='Session complete';
-    document.getElementById('studyBar').style.width='100%';
-    area.innerHTML=`<div class="center-card fade"><div class="emoji">🎉</div>
-      <h3>Done for now</h3><p>${sessionTotal} card${sessionTotal!==1?'s':''} reviewed in this round.</p>
-      <button class="btn" onclick="startStudy()">Study again</button></div>`;
-    return;
-  }
-  document.getElementById('studyCount').textContent=`${sessionDone+1} / ${sessionTotal}`;
-  document.getElementById('studyBar').style.width=`${(sessionDone/sessionTotal)*100}%`;
-  const v=cur, frontCN=dir==='cn2th';
-  const exHTML = v.ex_cn?`<div class="divider"></div><div class="ex">
-      <div class="ex-cn cn">${v.ex_cn}</div>
-      ${v.ex_py?`<div class="ex-py">${v.ex_py}</div>`:''}
-      ${v.ex_th?`<div class="ex-th th">${v.ex_th}</div>`:''}</div>`:'';
+  if(deckArr.length===0){ area.innerHTML=`<div class="center-card"><p>No words in this lesson.</p></div>`; return; }
+  const v=curWord(); const c=rec(v.cn);
+  if(!c.seen){ c.seen=true; awardXP(2); }
+  const tag=c.tag, tc=tag?('t-'+tag):'none';
   area.innerHTML=`
-    <div class="stage fade">
-      <div class="flash ${flipped?'flip':''}" id="flash">
-        <div class="face front">
-          <span class="eyebrow">Lesson ${v.lesson} · ${frontCN?'อ่านแล้วแปล':'แปลเป็นจีน'}</span>
-          ${frontCN?`<button class="speak" id="spk1">🔊</button><div class="big-cn cn">${v.cn}</div>`
-                   :`<div class="big-th th">${v.th}</div>`}
-          <div class="hint">Tap to reveal</div>
-        </div>
-        <div class="face back">
-          <span class="eyebrow">Lesson ${v.lesson}</span>
-          <button class="speak" id="spk2">🔊</button>
-          ${frontCN?`<div class="big-th th">${v.th}</div><div class="py">${v.py}</div>${v.en?`<div class="en">${v.en}</div>`:''}`
-                   :`<div class="big-cn cn">${v.cn}</div><div class="py">${v.py}</div>`}
-          ${exHTML}
+    <div class="navrow">
+      <button class="navbtn" id="prevBtn" aria-label="previous">‹</button>
+      <div class="pos">${idx+1} <span>/ ${deckArr.length}</span></div>
+      <button class="navbtn" id="nextBtn" aria-label="next">›</button>
+    </div>
+    <div class="deck">
+      <span class="cue l" id="cueL">‹</span><span class="cue r" id="cueR">›</span>
+      <div class="swipe ${animate?'enter':''}" id="swipe">
+        <div class="flash ${flipped?'flip':''}" id="flash">
+          <div class="face front">
+            <span class="cornertag ${tc}"></span>
+            <span class="eyebrow">${lessonLabel(v.lesson)}</span>
+            <button class="speak" id="spk1">🔊</button>
+            <div class="big-cn cn">${v.cn}</div>
+            <div class="hint">Tap to flip · swipe to move</div>
+          </div>
+          <div class="face back">
+            <span class="cornertag ${tc}"></span>
+            <span class="eyebrow">${lessonLabel(v.lesson)}</span>
+            <button class="speak" id="spk2">🔊</button>
+            ${backHTML(v)}
+          </div>
         </div>
       </div>
     </div>
-    <div class="grades" id="grades" style="${flipped?'':'visibility:hidden'}">
-      <button class="grade g-again" onclick="answer(0)">Again<small>&lt;1m</small></button>
-      <button class="grade g-hard"  onclick="answer(1)">Hard<small>${ivl(1)}</small></button>
-      <button class="grade g-good"  onclick="answer(2)">Good<small>${ivl(2)}</small></button>
-      <button class="grade g-easy"  onclick="answer(3)">Easy<small>${ivl(3)}</small></button>
+    <div class="tagrow">
+      <span class="taglabel">Difficulty <small>(optional — doesn't move the card)</small></span>
+      <div class="tags">
+        <button class="tagbtn t-hard ${tag==='hard'?'on':''}" data-tag="hard">Hard</button>
+        <button class="tagbtn t-medium ${tag==='medium'?'on':''}" data-tag="medium">Medium</button>
+        <button class="tagbtn t-easy ${tag==='easy'?'on':''}" data-tag="easy">Easy</button>
+      </div>
+      <div class="clearhint" id="clearHint">${tag?'Tap the active tag again to clear':''}</div>
     </div>`;
-  const fl=document.getElementById('flash');
-  fl.onclick=()=>{ if(!flipped){flipped=true; fl.classList.add('flip'); document.getElementById('grades').style.visibility='visible';} };
+  wireCard();
+}
+function go(step){ idx=(idx+step+deckArr.length)%deckArr.length; flipped=false; renderCard(); }
+function wireCard(){
+  const swipe=document.getElementById('swipe'), flash=document.getElementById('flash');
+  const cueL=document.getElementById('cueL'), cueR=document.getElementById('cueR');
+  let sx=0,sy=0,dx=0,dy=0,active=false,moved=false;
+  const reset=()=>{ swipe.style.transform=''; swipe.style.opacity='1'; cueL.style.opacity=0; cueR.style.opacity=0; };
+  swipe.addEventListener('pointerdown',e=>{ active=true;moved=false;sx=e.clientX;sy=e.clientY;dx=dy=0;
+    swipe.style.transition='none'; swipe.classList.remove('enter'); try{swipe.setPointerCapture(e.pointerId);}catch(_){} });
+  swipe.addEventListener('pointermove',e=>{ if(!active)return; dx=e.clientX-sx; dy=e.clientY-sy;
+    if(Math.abs(dx)+Math.abs(dy)>8)moved=true;
+    swipe.style.transform=`translateX(${dx}px) rotate(${dx*0.03}deg)`;
+    swipe.style.opacity=String(1-Math.min(Math.abs(dx)/700,.35));
+    cueR.style.opacity = dx>40?Math.min(dx/120,1):0; cueL.style.opacity = dx<-40?Math.min(-dx/120,1):0; });
+  const end=()=>{ if(!active)return; active=false; swipe.style.transition='transform .28s ease, opacity .28s ease';
+    if(!moved){ flipped=!flipped; flash.classList.toggle('flip'); reset(); return; }
+    const TH=70;
+    if(dx<-TH){ swipe.style.transform=`translateX(${-innerWidth}px) rotate(-12deg)`; swipe.style.opacity='0'; setTimeout(()=>go(1),180); }
+    else if(dx>TH){ swipe.style.transform=`translateX(${innerWidth}px) rotate(12deg)`; swipe.style.opacity='0'; setTimeout(()=>go(-1),180); }
+    else reset(); };
+  swipe.addEventListener('pointerup',end); swipe.addEventListener('pointercancel',end);
+  document.getElementById('prevBtn').onclick=()=>go(-1);
+  document.getElementById('nextBtn').onclick=()=>go(1);
   const s1=document.getElementById('spk1'), s2=document.getElementById('spk2');
-  if(s1)s1.onclick=e=>{e.stopPropagation();speak(v.cn);};
-  if(s2)s2.onclick=e=>{e.stopPropagation();speak(v.cn);};
+  if(s1)s1.onclick=e=>{e.stopPropagation();speak(curWord().cn);};
+  if(s2)s2.onclick=e=>{e.stopPropagation();speak(curWord().cn);};
+  document.querySelectorAll('.tagbtn').forEach(b=>b.onclick=()=>{
+    const c=rec(curWord().cn), t=b.dataset.tag; c.tag = c.tag===t ? null : t; saveProg();
+    document.querySelectorAll('.tagbtn').forEach(x=>x.classList.toggle('on', x.dataset.tag===c.tag));
+    document.querySelectorAll('.cornertag').forEach(el=>el.className='cornertag '+(c.tag?('t-'+c.tag):'none'));
+    document.getElementById('clearHint').textContent = c.tag?'Tap the active tag again to clear':''; });
 }
-function ivl(g){ // preview label
-  const c=PROG[cur.cn]||{ease:2.5,interval:0,reps:0};
-  let i;
-  if(g===1)i=Math.max(1,(c.interval||1)*1.2);
-  else if(g===2)i=c.reps===0?1:Math.max(1,c.interval*c.ease);
-  else i=Math.max(4,(c.interval||1)*c.ease*1.3);
-  i=Math.round(i); return i>=1?i+'d':'soon';
-}
-function answer(g){ grade(cur.cn,g); sessionDone++; nextCard(); }
-function startStudy(){ buildQueue(); nextCard(); }
+document.addEventListener('keydown',e=>{ if(view!=='study')return;
+  if(e.key==='ArrowRight')go(1); else if(e.key==='ArrowLeft')go(-1);
+  else if(e.key===' '){e.preventDefault(); const f=document.getElementById('flash'); if(f){flipped=!flipped;f.classList.toggle('flip');}} });
 
 /* ---------- QUIZ ---------- */
 let quiz=[], qi=0, qScore=0, answered=false;
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}return a;}
 function buildQuiz(){
-  const d=deck();
-  let items=[];
-  // built-in fill-in-the-blank for this lesson scope
-  const fib=(lesson==='all'?DATA.quizzes:DATA.quizzes.filter(q=>q.lesson===lesson));
-  fib.forEach(q=>items.push({type:'fib',q}));
-  // multiple-choice from vocab
-  const pool=d.slice(); shuffle(pool);
-  pool.slice(0,Math.max(0,10-items.length)).forEach(v=>{
-    const wrong=shuffle(d.filter(x=>x.cn!==v.cn)).slice(0,3);
-    const opts=shuffle([v,...wrong]);
-    items.push({type:'mc',v,opts,answer:opts.indexOf(v)});
-  });
-  shuffle(items);
-  quiz=items.slice(0,10); qi=0; qScore=0;
+  const d=deck(); let items=[];
+  (lesson==='all'?DATA.quizzes:DATA.quizzes.filter(q=>q.lesson===lesson)).forEach(q=>items.push({type:'fib',q}));
+  shuffle(d).slice(0,Math.max(0,10-items.length)).forEach(v=>{
+    const opts=shuffle([v,...shuffle(d.filter(x=>x.cn!==v.cn)).slice(0,3)]);
+    items.push({type:'mc',v,opts,answer:opts.indexOf(v)}); });
+  quiz=shuffle(items).slice(0,10); qi=0; qScore=0;
 }
+function setDir(nd){ dir=nd; saveSet(); renderQuiz(); }
 function renderQuiz(){
   const area=document.getElementById('quizArea');
   if(quiz.length===0){
     area.innerHTML=`<div class="center-card"><div class="emoji">📝</div><h3>Ready?</h3>
-      <p>${(lesson==='all'?'All lessons':'Lesson '+lesson)} · up to 10 questions.</p>
-      <button class="btn" onclick="startQuiz()">Start quiz</button></div>`; return;
-  }
-  if(qi>=quiz.length){
-    const pct=Math.round(qScore/quiz.length*100);
+      <p>${(lesson==='all'?'All lessons':lessonLabel(lesson))} · up to 10 questions.</p>
+      <div class="qdir"><button class="${dir==='cn2th'?'on':''}" onclick="setDir('cn2th')">中→ไทย</button>
+        <button class="${dir==='th2cn'?'on':''}" onclick="setDir('th2cn')">ไทย→中</button></div>
+      <button class="btn" onclick="startQuiz()">Start quiz</button></div>`; return; }
+  if(qi>=quiz.length){ const pct=Math.round(qScore/quiz.length*100);
     area.innerHTML=`<div class="center-card fade"><div class="emoji">${pct>=80?'🏆':pct>=50?'👍':'📚'}</div>
       <h3>${qScore} / ${quiz.length}</h3><p>${pct}% correct</p>
       <button class="btn" onclick="startQuiz()">Try again</button>
-      <button class="btn ghost" style="margin-top:10px" onclick="switchView('study')">Back to study</button></div>`;
-    return;
-  }
+      <button class="btn ghost" style="margin-top:10px" onclick="switchView('study')">Back to study</button></div>`; return; }
   const it=quiz[qi]; answered=false;
   document.getElementById('quizSub').textContent=`Question ${qi+1} of ${quiz.length} · score ${qScore}`;
+  let body;
   if(it.type==='fib'){
-    area.innerHTML=`<div class="q-card fade">
-      <div class="q-prompt">เติมคำในช่องว่าง · Fill the blank</div>
+    body=`<div class="q-card fade"><div class="q-prompt">เติมคำในช่องว่าง · Fill the blank</div>
       <div class="q-main sentence cn">${it.q.sentence_cn.replace(/＿+/,'<span style="color:var(--coral)">＿＿</span>')}</div>
-      ${it.q.sentence_th?`<div class="q-hint th">${it.q.sentence_th}</div>`:''}
-    </div>
-    <div class="opts" id="opts">${it.q.options.map((o,i)=>`<button class="opt cn" onclick="ansQuiz(${i},${it.q.answer})">${o}</button>`).join('')}</div>`;
-  } else {
-    const askCN = dir==='cn2th';
-    area.innerHTML=`<div class="q-card fade">
-      <div class="q-prompt">${askCN?'เลือกความหมาย · Choose meaning':'เลือกคำจีน · Choose the word'}</div>
-      <div class="q-main ${askCN?'cn':'th'}">${askCN?it.v.cn:it.v.th}</div>
-      <div class="q-hint">${askCN?it.v.py:''}</div>
-    </div>
-    <div class="opts" id="opts">${it.opts.map((o,i)=>`<button class="opt ${askCN?'th':'cn'}" onclick="ansQuiz(${i},${it.answer})">${askCN?o.th:o.cn}</button>`).join('')}</div>`;
+      ${it.q.sentence_th?`<div class="q-hint th">${it.q.sentence_th}</div>`:''}</div>
+      <div class="opts" id="opts">${it.q.options.map((o,i)=>`<button class="opt cn" onclick="ansQuiz(${i},${it.q.answer})">${o}</button>`).join('')}</div>`;
+  } else { const askCN=dir==='cn2th';
+    body=`<div class="q-card fade"><div class="q-prompt">${askCN?'เลือกความหมาย · Choose meaning':'เลือกคำจีน · Choose the word'}</div>
+      <div class="q-main ${askCN?'cn':'th'}">${askCN?it.v.cn:it.v.th}</div><div class="q-hint">${askCN?it.v.py:''}</div></div>
+      <div class="opts" id="opts">${it.opts.map((o,i)=>`<button class="opt ${askCN?'th':'cn'}" onclick="ansQuiz(${i},${it.answer})">${askCN?o.th:o.cn}</button>`).join('')}</div>`;
   }
+  area.innerHTML=body+`<button class="btn ghost" style="margin-top:12px" onclick="skipQ()">Skip — do this one later</button>`;
 }
 function ansQuiz(picked,correct){
   if(answered)return; answered=true;
-  const btns=[...document.querySelectorAll('#opts .opt')];
-  btns.forEach((b,i)=>{ b.style.pointerEvents='none';
-    if(i===correct)b.classList.add('correct');
-    else if(i===picked)b.classList.add('wrong'); else b.classList.add('dim'); });
-  const ok=picked===correct; if(ok)qScore++;
-  META.quizTotal++; if(ok)META.quizCorrect++; saveMeta();
-  const it=quiz[qi];
-  if(it.type==='mc') speak(it.v.cn);
+  [...document.querySelectorAll('#opts .opt')].forEach((b,i)=>{ b.style.pointerEvents='none';
+    if(i===correct)b.classList.add('correct'); else if(i===picked)b.classList.add('wrong'); else b.classList.add('dim'); });
+  const ok=picked===correct; if(ok)qScore++; META.quizTotal++; if(ok)META.quizCorrect++;
+  awardXP(ok?5:1);
+  const it=quiz[qi]; if(it.type==='mc')speak(it.v.cn);
   setTimeout(()=>{ qi++; renderQuiz(); }, ok?700:1300);
 }
+function skipQ(){ if(answered||quiz.length<2)return; const [it]=quiz.splice(qi,1); quiz.push(it); renderQuiz(); }
 function startQuiz(){ buildQuiz(); renderQuiz(); }
 
 /* ---------- BROWSE ---------- */
 function renderBrowse(filter=''){
   const list=document.getElementById('browseList');
-  document.getElementById('browseSub').textContent=`${DATA.vocab.length} words · 6 lessons`;
+  document.getElementById('browseSub').textContent=`${DATA.vocab.length} words · tap to hear · dot = your difficulty tag`;
   const f=filter.trim().toLowerCase();
   const rows=DATA.vocab.filter(v=>!f||v.cn.includes(f)||v.py.toLowerCase().includes(f)||v.th.toLowerCase().includes(f)||(v.en||'').toLowerCase().includes(f));
   if(rows.length===0){ list.innerHTML=`<div class="center-card"><p>No matches. Try another term.</p></div>`; return; }
-  list.innerHTML=rows.map(v=>`<div class="row" onclick="speak('${v.cn}')">
-    <div class="rc cn">${v.cn}</div>
-    <div class="rt"><div class="rp">${v.py}</div><div class="rm th">${v.th}</div></div>
-    <div class="tag">${v.lesson}</div></div>`).join('');
+  list.innerHTML=rows.map(v=>{ const t=(PROG[v.cn]&&PROG[v.cn].tag)||'';
+    return `<div class="row" onclick="speak('${v.cn}')"><span class="dot ${t?'t-'+t:''}"></span>
+      <div class="rc cn">${v.cn}</div><div class="rt"><div class="rp">${v.py}</div><div class="rm th">${v.th}</div></div>
+      <div class="tag">L${LMAP[v.lesson]}</div></div>`; }).join('');
 }
 
-/* ---------- STATS ---------- */
-function renderStats(){
-  const total=DATA.vocab.length;
-  const seen=Object.values(PROG).filter(c=>c.reps>0).length;
-  const dueNow=DATA.vocab.filter(v=>PROG[v.cn]&&PROG[v.cn].due<=now()&&PROG[v.cn].reps>0).length;
-  const mastered=Object.values(PROG).filter(c=>c.interval>=7).length;
+/* ---------- ME / growth ---------- */
+function renderMe(){
+  const area=document.getElementById('meArea');
+  const xp=GAME.xp, st=stageOf(xp), names=STAGE_NAMES;
+  const evolved = st>(GAME.stageSeen||0);
+  if(evolved){ GAME.stageSeen=st; saveData(); }
+  const next = st<STAGES.length-1?STAGES[st+1]:null;
+  const prevMin=STAGES[st], pct = next? Math.max(4,Math.round((xp-prevMin)/(next-prevMin)*100)):100;
+  const total=DATA.vocab.length, vals=Object.values(PROG);
+  const seen=vals.filter(c=>c.seen).length;
+  const hard=vals.filter(c=>c.tag==='hard').length, medium=vals.filter(c=>c.tag==='medium').length, easy=vals.filter(c=>c.tag==='easy').length, untag=total-hard-medium-easy;
   const acc=META.quizTotal?Math.round(META.quizCorrect/META.quizTotal*100):0;
-  const g=document.getElementById('statGrid');
-  g.innerHTML=`
-    <div class="stat"><div class="n jade">${seen}<span style="font-size:18px;color:var(--muted)">/${total}</span></div><div class="l">Words started</div></div>
-    <div class="stat"><div class="n grass">${mastered}</div><div class="l">Mastered (7+ day)</div></div>
-    <div class="stat"><div class="n coral">${dueNow}</div><div class="l">Due to review</div></div>
-    <div class="stat"><div class="n">${acc}%</div><div class="l">Quiz accuracy (${META.quizTotal})</div></div>`;
+  const pc=n=>total?(n/total*100):0;
+  area.innerHTML=`
+    ${evolved?`<div class="evolve">✨ Your companion evolved to ${names[st]}!</div>`:''}
+    <div class="me-hero">
+      <svg class="me-mascot" viewBox="0 0 200 200">${mascot(GAME.mascot,st)}</svg>
+      <div class="me-stage">${names[st]}</div>
+      <div class="me-level">Stage ${st+1} of 5 · ${xp} XP</div>
+      <div class="bar"><i style="width:${pct}%"></i></div>
+      <div class="me-next">${next?(next-xp)+' XP to '+names[st+1]:'Top stage reached — keep your streak alive!'}</div>
+      <div class="me-streak">🔥 ${GAME.streak}-day streak</div>
+    </div>
+    <div class="sec-title">Companion</div>
+    <div class="mascot-pick" id="mascotPick">
+      ${['dragon','phoenix','warrior'].map(t=>`<button class="mp ${GAME.mascot===t?'on':''}" data-t="${t}"><svg viewBox="0 0 200 200">${mascot(t,st)}</svg><span>${t}</span></button>`).join('')}
+    </div>
+    <div class="sec-title">Stats</div>
+    <div class="stat-grid">
+      <div class="stat"><div class="n jade">${seen}<span style="font-size:16px;color:var(--muted)">/${total}</span></div><div class="l">Words viewed</div></div>
+      <div class="stat"><div class="n">${acc}%</div><div class="l">Quiz accuracy (${META.quizTotal})</div></div>
+      <div class="stat"><div class="n coral">${hard}</div><div class="l">Tagged Hard</div></div>
+      <div class="stat"><div class="n grass">${easy}</div><div class="l">Tagged Easy</div></div>
+    </div>
+    <div class="tagbar"><i class="s-hard" style="width:${pc(hard)}%"></i><i class="s-medium" style="width:${pc(medium)}%"></i>
+      <i class="s-easy" style="width:${pc(easy)}%"></i><i class="s-none" style="width:${pc(untag)}%"></i></div>
+    <div class="tagbar-key"><span><i style="background:var(--coral)"></i>Hard ${hard}</span>
+      <span><i style="background:var(--amber)"></i>Medium ${medium}</span>
+      <span><i style="background:var(--grass)"></i>Easy ${easy}</span>
+      <span><i style="background:#dcdacc"></i>Untagged ${untag}</span></div>
+    <div class="sec-title">Profiles</div>
+    <div class="prof-list" id="profList">
+      ${PROFILES.map(p=>`<button class="prof-chip ${p.id===CUR?'on':''}" data-id="${p.id}">${p.name}</button>`).join('')}
+    </div>
+    <button class="btn ghost" id="newProf">+ New profile</button>
+    <div class="reset"><button id="resetBtn">Reset this profile's progress</button></div>`;
+  document.querySelectorAll('#mascotPick .mp').forEach(b=>b.onclick=()=>{
+    GAME.mascot=b.dataset.t; const p=PROFILES.find(p=>p.id===CUR); if(p){p.mascot=b.dataset.t; saveProfiles();}
+    saveData(); updateHeader(); renderMe(); });
+  document.querySelectorAll('#profList .prof-chip').forEach(b=>b.onclick=()=>{ if(b.dataset.id!==CUR) switchProfile(b.dataset.id); });
+  document.getElementById('newProf').onclick=()=>showOnboarding(true);
+  document.getElementById('resetBtn').onclick=async()=>{ if(confirm('Reset progress for this profile?')){
+    PROG={};META={quizCorrect:0,quizTotal:0};GAME.xp=0;GAME.streak=0;GAME.lastDay=null;GAME.stageSeen=0;saveData();dailyCheck();renderMe();rebuildDeck();}};
 }
 
-/* ---------- nav / chips / toggles ---------- */
-function switchView(v){
-  view=v;
-  ['study','quiz','browse','stats'].forEach(x=>document.getElementById('view-'+x).classList.toggle('hide',x!==v));
+/* ---------- onboarding / profiles ---------- */
+let obMascot='dragon';
+function showOnboarding(canCancel){
+  const o=document.getElementById('onboarding'); o.classList.remove('hide'); obMascot='dragon';
+  o.innerHTML=`<div class="ob-card">
+    <div class="ob-title">${PROFILES.length?'New learner':'Welcome! 词'}</div>
+    <p class="ob-sub">Create a profile to track your own growth.</p>
+    <input class="search" id="obName" placeholder="Your name or nickname" maxlength="20" style="text-align:center;margin-bottom:0">
+    <div class="ob-label">Choose your companion</div>
+    <div class="mascot-pick" id="obMascots">
+      ${['dragon','phoenix','warrior'].map(t=>`<button class="mp ${t==='dragon'?'on':''}" data-t="${t}"><svg viewBox="0 0 200 200">${mascot(t,4)}</svg><span>${t}</span></button>`).join('')}
+    </div>
+    <button class="btn" id="obStart" style="margin-top:18px">Start learning</button>
+    ${canCancel?`<button class="btn ghost" id="obCancel" style="margin-top:10px">Cancel</button>`:''}
+  </div>`;
+  o.querySelectorAll('#obMascots .mp').forEach(b=>b.onclick=()=>{ obMascot=b.dataset.t;
+    o.querySelectorAll('#obMascots .mp').forEach(x=>x.classList.toggle('on',x===b)); });
+  document.getElementById('obStart').onclick=async()=>{
+    const n=(document.getElementById('obName').value||'').trim()||'Learner'; await createProfile(n,obMascot); };
+  if(canCancel)document.getElementById('obCancel').onclick=()=>o.classList.add('hide');
+}
+async function createProfile(name,m){
+  const id='p'+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+  PROFILES.push({id,name,mascot:m}); CUR=id; await saveProfiles();
+  PROG={};META={quizCorrect:0,quizTotal:0};dir='cn2th';langs={py:true,th:true,en:false,jp:false};
+  GAME={mascot:m,xp:0,streak:0,lastDay:null,stageSeen:0}; saveData(); dailyCheck();
+  document.getElementById('onboarding').classList.add('hide'); startApp(); switchView('study');
+}
+async function switchProfile(id){ CUR=id; await Store.set(CKEY,CUR); await loadCurrent(); dailyCheck(); startApp(); switchView('me'); }
+function updateHeader(){ const p=PROFILES.find(p=>p.id===CUR); document.getElementById('profName').textContent=p?p.name:''; }
+
+/* ---------- nav ---------- */
+function switchView(v){ view=v;
+  ['study','quiz','browse','me'].forEach(x=>document.getElementById('view-'+x).classList.toggle('hide',x!==v));
   [...document.querySelectorAll('#nav button')].forEach(b=>b.classList.toggle('on',b.dataset.view===v));
-  if(v==='study'){ if(!cur&&queue.length===0) startStudy(); else renderStudy(); }
-  if(v==='quiz') renderQuiz();
-  if(v==='browse') renderBrowse(document.getElementById('search').value);
-  if(v==='stats') renderStats();
+  if(v==='study'){ if(deckArr.length===0)rebuildDeck(); else renderCard(); }
+  if(v==='quiz')renderQuiz(); if(v==='browse')renderBrowse(document.getElementById('search').value); if(v==='me')renderMe();
 }
 function renderChips(){
   const c=document.getElementById('lessonChips');
-  const all=['all',...DATA.lessons];
-  c.innerHTML=all.map(l=>`<button class="chip ${l===lesson?'on':''}" data-l="${l}">${l==='all'?'All':l}</button>`).join('');
-  [...c.children].forEach(b=>b.onclick=()=>{ lesson=b.dataset.l; renderChips(); startStudy(); if(view==='quiz')quiz=[]; });
+  c.innerHTML=['all',...DATA.lessons].map(l=>`<button class="chip ${l===lesson?'on':''}" data-l="${l}">${l==='all'?'All':lessonLabel(l)}</button>`).join('');
+  [...c.children].forEach(b=>b.onclick=()=>{ lesson=b.dataset.l; renderChips(); rebuildDeck(); quiz=[]; });
 }
-function shuffle(a){a=a.slice?a.slice():a;for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}return a;}
-
 document.getElementById('nav').addEventListener('click',e=>{const b=e.target.closest('button');if(b)switchView(b.dataset.view);});
-document.getElementById('dirToggle').addEventListener('click',e=>{
-  const b=e.target.closest('button'); if(!b)return; dir=b.dataset.dir;
-  [...e.currentTarget.children].forEach(x=>x.classList.toggle('on',x===b));
-  if(view==='study')renderStudy(); if(view==='quiz')renderQuiz();
-});
+document.getElementById('profBtn').onclick=()=>switchView('me');
 document.getElementById('search').addEventListener('input',e=>renderBrowse(e.target.value));
-document.getElementById('resetBtn').addEventListener('click',async()=>{
-  if(confirm('Erase all study progress on this device?')){ PROG={}; META={quizCorrect:0,quizTotal:0}; await saveProg(); await saveMeta(); renderStats(); startStudy(); }
-});
 
-/* ---------- boot ---------- */
-(async()=>{ await load(); renderChips(); startStudy(); })();
+function startApp(){ updateHeader(); renderChips(); renderLangRow(); rebuildDeck(); }
+(async()=>{
+  await loadProfiles();
+  if(!CUR || !PROFILES.find(p=>p.id===CUR)){ showOnboarding(false); }
+  else { await loadCurrent(); dailyCheck(); startApp(); }
+})();
 </script>
 </body>
 </html>
